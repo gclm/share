@@ -1,0 +1,14 @@
+.markdown-body,
+.wiki-body {
+    font-family: 'noto-serif';
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+var,
+code,
+kbd,
+pre {
+    font: 0.9em 'noto-mono';
+}
+

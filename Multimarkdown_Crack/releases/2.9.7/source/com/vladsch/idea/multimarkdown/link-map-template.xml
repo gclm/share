@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MarkdownProjectSettings">
+    <LinkMapSettings>
+      <textMaps>
+        <textMapGroup groupName="Jira Reference" elementType="REFERENCE" paramText="" textSample="ITS-0123" fileRefSample="issue-111">
+          <textMap>
+            <linkEntry isRegEx="true">
+              <pattern>ITS-(\d{1,5})</pattern>
+              <replaceWith>http://jira.somedomain.com/browse/ITS-$1</replaceWith>
+            </linkEntry>
+          </textMap>
+          <fileRefMap>
+            <linkEntry isRegEx="true">
+              <pattern />
+              <replaceWith />
+            </linkEntry>
+          </fileRefMap>
+        </textMapGroup>
+        <textMapGroup groupName="Flexmark Front Matter Title" elementType="FLEXMARK_FRONT_MATTER" paramText="" textSample="title: Test Sample Spec" fileRefSample="/test_sample_spec.md">
+          <textMap>
+            <linkEntry isRegEx="true">
+              <pattern>(?:^|\n)title:\s*(?:(?:.*)/)*([^\s]+)(?:\s|$)</pattern>
+              <replaceWith>$1</replaceWith>
+            </linkEntry>
+          </textMap>
+          <fileRefMap>
+            <linkEntry isRegEx="true">
+              <pattern>(?:(?:.*)/)*([^/]+)\.md(?:\s|$)</pattern>
+              <replaceWith>$1</replaceWith>
+            </linkEntry>
+          </fileRefMap>
+        </textMapGroup>
+        <textMapGroup groupName="Jekyll Front Matter Permalink" elementType="JEKYLL_FRONT_MATTER" paramText="" textSample="permalink: /pages/mon/day/test.html" fileRefSample="/test/sample/jekyll.md">
+          <textMap>
+            <linkEntry isRegEx="true">
+              <pattern>(?:^|\n)permalink:\s*(?:(?:.*)/)*([^\s]+)\.html(?:\s|$)</pattern>
+              <replaceWith>$1.md</replaceWith>
+            </linkEntry>
+          </textMap>
+          <fileRefMap>
+            <linkEntry isRegEx="true">
+              <pattern>(?:(?:.*)/)*([^/]+)\.md(?:\s|$)</pattern>
+              <replaceWith>$1</replaceWith>
+            </linkEntry>
+          </fileRefMap>
+        </textMapGroup>
+        <textMapGroup groupName="Jekyll Link Macro" elementType="LINK_REF" paramText="" textSample="{{ static_root }}/img/test.png" fileRefSample="/img/picture.png">
+          <textMap>
+            <linkEntry isRegEx="false">
+              <pattern>{{ static_root }}/</pattern>
+              <replaceWith>/</replaceWith>
+            </linkEntry>
+          </textMap>
+          <fileRefMap>
+            <linkEntry isRegEx="false">
+              <pattern>file://$PROJECT_DIR$/</pattern>
+              <replaceWith>{{ static_root }}/</replaceWith>
+            </linkEntry>
+            <linkEntry isRegEx="false">
+              <pattern>/</pattern>
+              <replaceWith>{{ static_root }}/</replaceWith>
+            </linkEntry>
+          </fileRefMap>
+        </textMapGroup>
+        <textMapGroup groupName="Jekyll .md to .html" elementType="LINK_REF" paramText="" textSample="/dir/file.html" fileRefSample="/dir/subDir/file.md">
+          <textMap>
+            <linkEntry isRegEx="true">
+              <pattern>\.html$</pattern>
+              <replaceWith>.md</replaceWith>
+            </linkEntry>
+          </textMap>
+          <fileRefMap>
+            <linkEntry isRegEx="true">
+              <pattern>\.md$</pattern>
+              <replaceWith>.html</replaceWith>
+            </linkEntry>
+            <linkEntry isRegEx="true">
+              <pattern>\.mkd$</pattern>
+              <replaceWith>.html</replaceWith>
+            </linkEntry>
+            <linkEntry isRegEx="true">
+              <pattern>\.markdown$</pattern>
+              <replaceWith>.html</replaceWith>
+            </linkEntry>
+          </fileRefMap>
+        </textMapGroup>
+      </textMaps>
+    </LinkMapSettings>
+  </component>
+</project>

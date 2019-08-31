@@ -1,0 +1,1769 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2011-2014 Julien Nicoulaud <julien.nicoulaud@gmail.com>
+  ~ Copyright (c) 2015-2019 Vladimir Schneider <vladimir.schneider@gmail.com>
+  ~
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements.  See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership.  The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License.  You may obtain a copy of the License at
+  ~
+  ~   http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+<idea-plugin url="http://github.com/vsch/idea-multimarkdown">
+    <id>com.vladsch.idea.multimarkdown</id>
+    <name>Markdown Navigator</name>
+    <category>Custom Languages</category>
+    <vendor email="vladimir.schneider@gmail.com" url="http://www.vladsch.com">Vladimir Schneider</vendor>
+    <depends>com.intellij.modules.lang</depends>
+    <depends optional="true" config-file="plugin-intellilang.xml">org.intellij.intelliLang</depends>
+    <depends optional="true">com.intellij.tasks</depends>
+    <depends optional="true">com.intellij.java</depends>
+    <depends>Git4Idea</depends>
+    <depends optional="true">org.jetbrains.plugins.yaml</depends>
+    <depends optional="true">com.vladsch.MissingInActions</depends>
+
+    <description><![CDATA[
+        <div xmlns="http://www.w3.org/1999/html">
+            <p><strong><a href="https://daringfireball.net/projects/markdown"><span style="color:#30A0D8;">Markdown</span></a> language support for IntelliJ
+                platform</strong></p>
+            <p><strong>A Markdown plugin</strong> with GFM and a <strong>matching</strong> preview style.</p>
+            <p><strong>Get Markdown Navigator <a href="https://vladsch.com/product/markdown-navigator">enhanced edition</a> to unlock all productivity
+                features.</strong></p>
+            <h2>Document with pleasure!</h2>
+            <p>Work with <a href="https://daringfireball.net/projects/markdown">Markdown</a> files like you do with other languages in the IDE, by getting full support
+                for:</p>
+            <ul>
+                <li><strong>Paste images</strong> into documents for fast screen capture links</li>
+                <li><strong>Drag &amp; Drop files and images</strong> for fast link insertion</li>
+                <li><strong>Formatting</strong> to cleanup documents with a key stroke</li>
+                <li><strong>Navigation and Find Usages</strong> to find references without effort</li>
+                <li><strong>Copy Markdown</strong> as <strong>JIRA</strong>, <strong>YouTrack</strong> or <strong>HTML</strong> formatted text</li>
+                <li>Convert <strong>HTML to Markdown by pasting</strong> it into a Markdown document.</li>
+                <li><strong>Export</strong> to <strong>HTML</strong> or <strong>PDF</strong> to share with others</li>
+                <li><strong>Refactoring</strong> of all referencing elements:
+                    <ul>
+                        <li>files ⟺ links</li>
+                        <li>headings ⟺ ref anchors</li>
+                        <li>footnotes ⟺ footnote refs</li>
+                        <li>references ⟺ ref links/ref images</li>
+                    </ul>
+                </li>
+                <li><strong>Completions</strong> to reduce typing:
+                    <ul>
+                        <li>link address ⇐ files</li>
+                        <li>ref anchors ⇐ headings</li>
+                        <li>footnote refs ⇐ footnotes</li>
+                        <li>ref links/ref images ⇐ references</li>
+                        <li>link text ⇐ ref anchor/link address</li>
+                    </ul>
+                </li>
+                <li><strong>Error and Warning</strong> annotations to help catch mistakes early</li>
+                <li><strong>Intention actions</strong> for fast results with less effort</li>
+                <li><strong>Wrap on Typing</strong> to keep it nicely formatted as you edit</li>
+                <li><strong>GitHub style rendering</strong> that you are used to, out of the box</li>
+                <li><strong>GitLab parsing and rendering</strong> extensions
+                    <ul>
+                        <li><strong>Math</strong> extension using <a href="https://github.com/Khan/KaTeX">Katex</a></li>
+                        <li><strong>Charts</strong> extension using <a href="https://github.com/knsv/mermaid">Mermaid</a></li>
+                    </ul>
+                </li>
+                <li><strong>Math block and inline</strong> rendering by <a href="https://github.com/Khan/KaTeX">Katex</a> or <a href="https://codecogs.com">codecogs.com</a></li>
+                <li><strong>PlantUML fenced code</strong> rendering by <a href="http://plantuml.com">PlantUML</a> or <a href="http://gravizo.com">gravizo.com</a></li>
+                <li><strong>Fast typing response</strong> for distraction free editing</li>
+                <li><strong>Fully customizable</strong> to adjust to your preferences and project needs</li>
+            </ul>
+            <p><img src="https://raw.githubusercontent.com/vsch/idea-multimarkdown/master/assets/images/plugin_description_img2.png" alt="Screenshot"/></p>
+        </div>
+        ]]></description>
+
+<!--    <product-descriptor code="PMDNAV" release-date="20190701" release-version="2019"/>-->
+
+    <version>2.9.7</version>
+
+    <idea-version since-build="192"/>
+
+    <change-notes><![CDATA[
+        <div xmlns="http://www.w3.org/1999/html">
+            <h3>2.9.7 - Bug Fix &amp; Compatibility Release</h3>
+            <ul>
+                <li>Fix: compatibility with 193.SNAPSHOT</li>
+            </ul>
+            <h3>2.9.0/2.9.5 - Bug Fix &amp; Compatibility Release</h3>
+            <ul>
+                <li>Fix: diagnostic/3761,</li>
+                <li>Fix: Formatter adding <code>LINE_SEPARATOR</code> after images and links when they are at start of line</li>
+                <li>Fix: Add attribute formatting code style settings</li>
+                <li>Fix: attributes code style settings in headings were not applied when formatting</li>
+                <li>Fix: diagnostic reporting fixed version to handle split plugin versions for IDE versions &lt; 192
+                    and &gt;= 192.</li>
+            </ul>
+            <h5>2.8.4.38/2.8.9.38 - EAP Release</h5>
+            <ul>
+                <li>Fix: <a href="https://github.com/vsch/idea-multimarkdown/issues/761">#761, html paste option can&rsquo;t save</a></li>
+                <li>Fix: diagnostic/3638 AssertionError: MdProjectComponent.reloadMarkdownEditors</li>
+                <li>Fix: diagnostic/3425 Assertion: MdPasteHandler.getFilePathAnchorFromFqn</li>
+            </ul>
+            <h5>2.8.4.36/2.8.9.36 - EAP Release</h5>
+            <ul>
+                <li>Fix: <a href="https://github.com/vsch/idea-multimarkdown/issues/760">#760, Attributes support is broken/incompatible with fenced code blocks</a></li>
+            </ul>
+            <h5>2.8.4.34/2.8.9.34 - EAP Release</h5>
+            <ul>
+                <li>Fix: Split plugin into 192 and pre-192 versions</li>
+                <li>Fix: update to flexmark-java 0.50.18, including new HTML converter</li>
+                <li>Fix: hard break inside inline elements were not preserved on save.</li>
+                <li>Fix: pasting HTML with image URLs starting with <code>//</code> without <code>https:</code> or <code>http:</code> protocol
+                    prefix would cause UI to hang while attempting to download image. Now only non-image
+                    extensions or <code>.svg</code> links which have protocol extension or non-absolute links will attempt to
+                    convert svg to png.</li>
+            </ul>
+            <h5>2.8.4.32 - EAP Release</h5>
+            <ul>
+                <li>Fix: <a href="https://github.com/vsch/idea-multimarkdown/issues/757">#757, Gitlab multi-line blockquote syntax incorrect</a></li>
+                <li>Fix: diagnostic/3359, IllegalStateException: projectPlainTextFileTypeManager must not be null</li>
+                <li>Fix: compatibility with 2019.2 IDEs</li>
+                <li>Fix: update to flexmark-java 0.50.13</li>
+                <li>Fix: diagnostic/3251, NullPointerException: MdProjectComponent$exportAllHtmlRaw</li>
+                <li>Fix: link map settings to sort entries by group name when saving to fix order of entries</li>
+                <li>Fix: diagnostic/3224, NullPointerException: MdProjectComponent$exportAllHtmlRaw</li>
+            </ul>
+            <h5>2.8.4.30 - EAP Release</h5>
+            <ul>
+                <li>Fix: <a href="https://github.com/vsch/idea-multimarkdown/issues/741">#741, Links</a>, file without extension would sometimes not show up in completion or show
+                    as unresolved.</li>
+                <li>Fix: diagnostic/3203, Throwable: Icon cannot be found in
+                    &lsquo;/icons/application-flexmark-extension.svg&rsquo;</li>
+                <li>Add: missing svg application icons</li>
+            </ul>
+            <h5>2.8.4.28 - EAP Release</h5>
+            <ul>
+                <li>Fix: html to markdown converter set default to wrapped auto-links</li>
+                <li>Fix: header up action disabled if text is inline element (bold, italic, etc.)</li>
+                <li>Fix: diagnostic/3147 Throwable: Invalid file: MdProjectComponent.reparseMarkdown</li>
+                <li>Fix: diagnostic/3144 caused by conversion of empty ATX to setext</li>
+                <li>Fix: <a href="https://github.com/vsch/idea-multimarkdown/issues/747">#747, Useless &ldquo;Markdown Export On Settings Change&rdquo; notifications</a></li>
+                <li>Fix: <a href="https://github.com/vsch/idea-multimarkdown/issues/746">#746, Plugin creates files under .idea with default settings</a>, removed
+                    <code>markdown-navigator.xml</code> and <code>markdown-navigator/</code> if defaults are used.</li>
+                <li>Fix: diagnostic/3117, ClassCastException: cannot be cast to MdLinkElement</li>
+            </ul>
+            <h5>2.8.4.26 - EAP Release</h5>
+            <ul>
+                <li>Fix:
+                    <a href="https://github.com/vsch/idea-multimarkdown/issues/745">#745, Exception from AppUtils.isAppVersionGreaterThan when running on development build of IntelliJ IDEA</a></li>
+                <li>Fix: diagnostic/3095, StringIndexOutOfBoundsException: EMPTY subSequence,
+                    TableRow.fillMissingColumns</li>
+                <li>Fix: diagnostic/3079, Java 11 - Flexmark parser exception: Illegal repetition near index</li>
+                <li>Fix: remove trailing EOL from html to markdown converted text for new HTML parser code.</li>
+                <li>Add: code-stream sponsor banner</li>
+            </ul>
+            <h5>2.8.4.24 - EAP Release</h5>
+            <ul>
+                <li>Fix: possible fix for <a href="https://github.com/vsch/idea-multimarkdown/issues/743">#743, auto-move in preview to match source code cursor position</a></li>
+                <li>Fix: update flexmark-java 0.50.2</li>
+                <li>Fix: diagnostic/3062, NPE Json write
+                    <ul>
+                        <li>Fix: <code>boxed-json</code> add deep <code>null</code> to <code>JsonValue.NULL</code> replacement for <code>MutableJsArray</code> and
+                            <code>MutableJsObject</code> <code>toString()</code> calls to eliminate null pointer exceptions on <code>toString()</code>.</li>
+                    </ul>
+                </li>
+            </ul>
+            <h5>2.8.4.22 - EAP Release</h5>
+            <ul>
+                <li>Fix: diagnostic/3038, NPE: MdEditorKit MarkdownImageView.getImageURL</li>
+                <li>Fix: diagnostic/3037, assertion error</li>
+                <li>Fix: copy/modify image intention to work with base64 encoded images</li>
+                <li>Fix: update flexmark-java 0.50.0</li>
+            </ul>
+            <h5>2.8.4.20 - EAP Release</h5>
+            <ul>
+                <li>Fix: copy/modify image intention to work with base64 encoded images</li>
+                <li>Fix: diagnostic/3023, NoClassDefFoundError: sun/misc/BASE64Encoder</li>
+                <li>Fix: add block quote action toggled existing block quote marker instead of adding one.
+                    <ul>
+                        <li>Fix: add/remove block quote actions for better control where block quote is added/removed
+                            based on caret position.</li>
+                    </ul>
+                </li>
+                <li>Fix: add whitespace parsing to external annotator per lexer processing</li>
+                <li>Fix: leave individual text parts of a paragraph separate to allow block quote and aside block
+                    white space prefixes to be syntax highlighted.</li>
+            </ul>
+            <h5>2.8.4.18 - EAP Release</h5>
+            <ul>
+                <li>Fix: regression <a href="https://github.com/vsch/idea-multimarkdown/issues/727">#727, css files not created in export folder</a></li>
+                <li>Fix: for duplicate heading ids and id attributes, remove navigate to element at caret</li>
+            </ul>
+            <h5>2.8.4.16 - EAP Release</h5>
+            <ul>
+                <li>Add: filter out links consisting of only URI/URL prefixes from line markers</li>
+                <li>Fix: line marker provider to filter out plain auto-links not wrapped in <code>&lt;&gt;</code></li>
+                <li>Add: on Windows OS use of <code>file://</code> URI prefix instead of <code>file:/</code></li>
+                <li>Fix: diagnostic/2966, IllegalArgumentException: path must be canonical but got: &lsquo;//..&rsquo;</li>
+                <li>Fix: diagnostic/2976, Must not modify PSI inside save: Update TOC on Save</li>
+                <li>Fix: minimum build version changed to <code>173.2463</code> corresponding to 2017.3</li>
+                <li>Fix: <a href="https://github.com/vsch/idea-multimarkdown/issues/737">#737, &ldquo;Hard-break&rdquo; Trailing Spaces Removed on Manual Save</a></li>
+                <li>Add: diagnostic/2952 to fixed list: Preview to use immutable document char sequence</li>
+            </ul>
+            <h5>2.8.4.14 - EAP Release</h5>
+            <ul>
+                <li>Fix: diagnostic/2951, Illegal group reference, ChangeTextToAutoLinkIntention.visitNode</li>
+                <li>Fix: diagnostic/2949, IllegalStateException: frame must not be null</li>
+                <li>Fix: diagnostic/2945, IndexOutOfBoundsException: <code>MdOnSaveFileUpdater$updateToc</code></li>
+                <li>Fix: plantUML (puml language) parser settings change is not detected</li>
+            </ul>
+            <h5>2.8.4.12 - EAP Release</h5>
+            <ul>
+                <li>Add: Diagnostic report tracking description for identified reports.</li>
+                <li>Fix: diagnostic/2940, project is already disposed</li>
+            </ul>
+            <h5>2.8.4.10 - EAP Release</h5>
+            <ul>
+                <li>Add: Diagnostic report tracking.</li>
+                <li>Fix: possible fix for diagnostic/2876, NoClassDefFoundError: Could not initialize class
+                    icons.MdIcons</li>
+                <li>Fix: diagnostic/2374, Assertion: TableContext.getTable(TableContext.kt)</li>
+                <li>Fix: diagnostic/2879, ClassCastException: PsiPlainTextFileImpl cannot be cast to PsiDirectory</li>
+                <li>Fix: possible fix for diagnostic/2830, KNPE MdPlugin$Companion.getProjectComponent</li>
+                <li>Fix: possible fix for diagnostic/2883, IllegalStateException: cannot open system clipboard</li>
+            </ul>
+            <h5>2.8.4.6 - EAP Release</h5>
+            <ul>
+                <li>Fix: add <code>!include</code> parsing for plantUML diagrams and invalidate generated image if include
+                    file content changes</li>
+                <li>Fix: diagnostic/2896, NPE Json write of editor state</li>
+                <li>Fix: diagnostic/2423, parser exception, <code>AutolinkNodePostProcessor</code></li>
+                <li>Fix: diagnostic/2612, SubSequence assertion error. Use Document <code>immutableCharSequence</code>
+                    instead of <code>charSequence</code> which can change between parse tree generation and rendering.</li>
+                <li>Fix: diagnostic/2773, Wrong line separators</li>
+                <li>Fix: diagnostic/2889, NPE <code>TableParagraphPreProcessor.cleanUpInlinedSeparators</code></li>
+                <li>Fix: <a href="https://github.com/vsch/idea-multimarkdown/issues/733">#733, PlantUML include path</a></li>
+                <li>Fix: Upgrade to <code>plantuml.asl.1.2019.4</code></li>
+                <li>Add: <code>resources/search/searchableOptions.xml</code> for full text search across all configuration
+                    settings.</li>
+                <li>Fix: 2017.3 loads .svg icons if available even when .png icon is requested, while its .svg
+                    loader results in grey scale icons resulting in mostly black icons.
+                    <ul>
+                        <li>Fix: put svg and png icons into separate directories to prevent png load request loading svg
+                            files.</li>
+                    </ul>
+                </li>
+                <li>Fix: diagnostic/2846, Empty PSI elements</li>
+                <li>Fix: diagnostic/2858, Project Already Disposed: JavaFxHtmlPanel</li>
+            </ul>
+            <h3>2.8.4 - Bug Fix &amp; Enhancement Release</h3>
+            <ul>
+                <li><strong>Bug Fixes</strong>, Full <a href="https://github.com/vsch/idea-multimarkdown/blob/master/resources/META-INF/VERSION.md">Version Notes</a></li>
+                <li><strong>Java 11 JRE Support</strong></li>
+                <li><strong>Improved Preview and Typing</strong> response</li>
+                <li><strong>Cut/Copy/Paste Improved</strong> to handle Macros, Enumerated References and Link adjustments</li>
+                <li>Copy/Paste <strong>between IDE instances</strong> with all references included and links adjusted</li>
+                <li><strong>Plain Text Completions</strong> to insert references defined in file and in
+                    <a href="https://github.com/vsch/idea-multimarkdown/wiki/Rendering-Profiles-Settings#plain-text-suggestion-scope">Plain Text Suggestion Scope</a></li>
+                <li><strong>Inspection Option</strong> to ignore markdown text in fenced code</li>
+                <li><strong>New Inspections</strong>
+                    <ul>
+                        <li>mismatch of link to heading text for anchor refs to headings</li>
+                        <li>unicode LINE SEPARATOR in file</li>
+                        <li>list item needs more indentation to be a sub-item</li>
+                    </ul>
+                </li>
+                <li><strong>Annotator Settings</strong> to customize enabled annotations</li>
+                <li><strong>Annotator Errors</strong> to show underline for file in project tree</li>
+                <li><strong>New Intentions</strong> to wrap auto-link looking text in <code>&lt;&gt;</code></li>
+                <li><strong>New HTML Paste Options</strong> convert links to:
+                    <ul>
+                        <li><code>References</code></li>
+                        <li><code>Text</code></li>
+                        <li><code>HTML</code></li>
+                        <li><code>Explicit links</code></li>
+                    </ul>
+                </li>
+                <li><strong>New Structure View Option</strong> Show Headings &amp; Tasks</li>
+                <li><strong>Show Members</strong> in project view to show headings</li>
+                <li><strong>Format Document</strong> option to remove unused reference element definitions</li>
+                <li><strong>In-place Rename</strong> of headings, references and other elements</li>
+                <li><strong>Dropped Links</strong> insert options:
+                    <ul>
+                        <li><code>Link</code></li>
+                        <li><code>Ref Link &amp; Reference</code></li>
+                        <li><code>Reference Only</code></li>
+                    </ul>
+                </li>
+                <li><strong>Syntax Highlighter Attributes</strong> for GitLab extension elements</li>
+                <li><strong>Ignore invalid link or anchor</strong> annotator comment directive</li>
+                <li><strong>Compound Enumerated References</strong> for legal numbering of elements:
+                    <a href="https://github.com/vsch/idea-multimarkdown/wiki/Enumerated-References-Extension">Enumerated Reference Extension</a></li>
+                <li>Create <strong>PDF Export</strong> profile: <a href="https://github.com/vsch/idea-multimarkdown/wiki/Rendering-Profiles-Settings#configuring-for-non-latin-character-sets">Configuring for Non-Latin Character Sets</a></li>
+                <li>Default <strong>Completion format</strong> setting to change starting link address format</li>
+            </ul>
+        </div>
+        ]]></change-notes>
+
+    <!--<xi:include href="/META-INF/markdown-extensions.xml" xpointer="xpointer(/idea-multimarkdown/*)"/>-->
+
+    <extensionPoints>
+        <extensionPoint
+              interface="com.vladsch.idea.multimarkdown.editor.util.HtmlPanelProvider" name="html.panel.provider"/>
+        <extensionPoint
+              interface="com.vladsch.idea.multimarkdown.editor.util.HtmlGeneratorProvider" name="html.generator.provider"/>
+        <extensionPoint
+              interface="com.vladsch.idea.multimarkdown.editor.util.HtmlScriptResourceProvider" name="html.script.provider"/>
+        <extensionPoint
+              interface="com.vladsch.idea.multimarkdown.editor.util.HtmlCssResourceProvider" name="html.css.provider"/>
+        <extensionPoint
+              interface="com.vladsch.idea.multimarkdown.language.completion.MdElementCompletion" name="element.completionProvider"/>
+    </extensionPoints>
+
+    <extensions defaultExtensionNs="com.vladsch.idea.multimarkdown">
+        <html.panel.provider implementation="com.vladsch.idea.multimarkdown.editor.swing.SwingHtmlPanelProvider"/>
+        <!--<html.panel.provider implementation="com.vladsch.idea.multimarkdown.editor.lobo.LoboHtmlPanelProvider"/>-->
+        <html.panel.provider implementation="com.vladsch.idea.multimarkdown.editor.javafx.JavaFxHtmlPanelProvider"/>
+        <html.panel.provider implementation="com.vladsch.idea.multimarkdown.editor.text.TextHtmlPanelProvider"/>
+
+        <html.generator.provider implementation="com.vladsch.idea.multimarkdown.editor.resources.SwingHtmlGeneratorProvider"/>
+        <html.generator.provider implementation="com.vladsch.idea.multimarkdown.editor.resources.JavaFxHtmlGeneratorProvider"/>
+        <html.generator.provider implementation="com.vladsch.idea.multimarkdown.editor.resources.TextHtmlGeneratorProvider"/>
+
+        <html.css.provider implementation="com.vladsch.idea.multimarkdown.editor.resources.SwingHtmlCssProvider"/>
+        <!--<html.css.provider implementation="com.vladsch.idea.multimarkdown.editor.resources.LoboHtmlCssProvider"/>-->
+        <html.css.provider implementation="com.vladsch.idea.multimarkdown.editor.resources.JavaFxHtmlCssProvider"/>
+        <html.css.provider implementation="com.vladsch.idea.multimarkdown.editor.resources.TextHtmlCssProvider"/>
+        <html.css.provider implementation="com.vladsch.idea.multimarkdown.editor.resources.HljsHtmlCssProvider"/>
+        <html.css.provider implementation="com.vladsch.idea.multimarkdown.editor.resources.PrismHtmlCssProvider"/>
+        <html.css.provider implementation="com.vladsch.idea.multimarkdown.editor.resources.KatexHtmlCssProvider"/>
+        <html.css.provider implementation="com.vladsch.idea.multimarkdown.editor.resources.GitHubCollapseMarkdownCssProvider"/>
+
+        <html.script.provider implementation="com.vladsch.idea.multimarkdown.editor.resources.GitHubCollapseInCommentScriptProvider"/>
+        <html.script.provider implementation="com.vladsch.idea.multimarkdown.editor.resources.HljsScriptProvider"/>
+        <html.script.provider implementation="com.vladsch.idea.multimarkdown.editor.resources.KatexScriptProvider"/>
+        <html.script.provider implementation="com.vladsch.idea.multimarkdown.editor.resources.MermaidScriptProvider"/>
+        <html.script.provider implementation="com.vladsch.idea.multimarkdown.editor.resources.PrismScriptProvider"/>
+        <html.script.provider implementation="com.vladsch.idea.multimarkdown.editor.resources.GitHubCollapseMarkdownScriptProvider"/>
+
+        <element.completionProvider implementation="com.vladsch.idea.multimarkdown.language.completion.LinkAnchorCompletion"/>
+        <element.completionProvider implementation="com.vladsch.idea.multimarkdown.language.completion.FootnoteRefCompletion"/>
+        <element.completionProvider implementation="com.vladsch.idea.multimarkdown.language.completion.FootnoteIdCompletion"/>
+        <element.completionProvider implementation="com.vladsch.idea.multimarkdown.language.completion.MacroRefCompletion"/>
+        <element.completionProvider implementation="com.vladsch.idea.multimarkdown.language.completion.MacroIdCompletion"/>
+        <element.completionProvider implementation="com.vladsch.idea.multimarkdown.language.completion.EnumeratedReferenceTypeCompletion"/>
+        <element.completionProvider implementation="com.vladsch.idea.multimarkdown.language.completion.AttributeIdValueCompletion"/>
+        <element.completionProvider implementation="com.vladsch.idea.multimarkdown.language.completion.EnumeratedReferenceIdCompletion"/>
+        <element.completionProvider implementation="com.vladsch.idea.multimarkdown.language.completion.EmojiShortcutCompletion"/>
+        <element.completionProvider implementation="com.vladsch.idea.multimarkdown.language.completion.CodeFenceLanguageCompletion"/>
+        <element.completionProvider implementation="com.vladsch.idea.multimarkdown.language.completion.FlexmarkOptionsKeywordCompletion"/>
+        <element.completionProvider implementation="com.vladsch.idea.multimarkdown.language.completion.LinkRefCompletion"/>
+        <element.completionProvider implementation="com.vladsch.idea.multimarkdown.language.completion.LinkTextCompletion"/>
+        <element.completionProvider implementation="com.vladsch.idea.multimarkdown.language.completion.ReferenceLinkCompletion"/>
+        <element.completionProvider implementation="com.vladsch.idea.multimarkdown.language.completion.WikiLinkTextCompletion"/>
+        <element.completionProvider implementation="com.vladsch.idea.multimarkdown.language.completion.InlineCodeCompletion"/>
+        <element.completionProvider implementation="com.vladsch.idea.multimarkdown.language.completion.GitHubIssueCompletion"/>
+        <element.completionProvider implementation="com.vladsch.idea.multimarkdown.language.completion.PlainTextCompletion"/>
+    </extensions>
+
+    <!--<xi:include href="/META-INF/intentions.xml" xpointer="xpointer(/idea-multimarkdown/*)"/>-->
+    <!--<xi:include href="/META-INF/wrappers.xml" xpointer="xpointer(/idea-multimarkdown/*)"/>-->
+    <actions>
+        <group id="MarkdownNavigator.ToolsMenu" text="Markdown Navigator" popup="true" icon="MdIcons.MARKDOWN_NAVIGATOR_LOGO">
+            <add-to-group group-id="ToolsMenu" anchor="after" relative-to-action="ExternalToolsGroup"/>
+            <group id="MarkdownNavigator.ExportMarkdownMenu" text="Export Markdown" popup="true">
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ExportAllHtmlAction"
+                        id="MarkdownNavigator.ExportAllHtml"
+                        text="Export Markdown as HTML"
+                        description="Export all applicable markdown documents as HTML"
+                        icon="MdIcons.EditorActions.Export_all_html">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ExportAllHtmlForcedAction"
+                        id="MarkdownNavigator.ExportAllHtmlForced"
+                        text="Re-Export Markdown as HTML"
+                        description="Re-Export all applicable markdown documents as HTML"
+                        icon="MdIcons.EditorActions.Export_all_html">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.DeleteInvalidGeneratedFilesAction"
+                        id="MarkdownNavigator.DeleteInvalidGeneratedFiles"
+                        text="Delete Invalid Markdown Exported Files"
+                        description="Delete Markdown Export generated files that are no longer valid">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.DeleteGeneratedFilesAction"
+                        id="MarkdownNavigator.DeleteGeneratedFiles"
+                        text="Delete Markdown Exported Files"
+                        description="Delete all Markdown Export generated files">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
+                </action>
+            </group>
+        </group>
+
+        <group id="MarkdownNavigator.CopyMarkdownMenu" text="Copy Markdown" popup="true">
+            <add-to-group group-id="MarkdownNavigator.ToolsMenu" anchor="after" relative-to-action="MarkdownNavigator.ExportMarkdownMenu"/>
+        </group>
+
+        <group id="MarkdownNavigator.FormatMarkdownMenu" text="Format Markdown" popup="true">
+            <add-to-group group-id="MarkdownNavigator.ToolsMenu" anchor="after" relative-to-action="MarkdownNavigator.CopyMarkdownMenu"/>
+        </group>
+
+        <group id="MarkdownNavigator.ChangeFormatMarkdownMenu" text="Change Markdown Format" popup="true">
+            <add-to-group group-id="MarkdownNavigator.ToolsMenu" anchor="after" relative-to-action="MarkdownNavigator.FormatMarkdownMenu"/>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ReformatDocumentFromCommonMarkAction"
+                    id="MarkdownNavigator.ReformatDocumentAsCommonMark"
+                    text="Reformat Document from CommonMark"
+                    description="Reformat current document from CommonMark"
+                    icon="MdIcons.EditorActions.Reformat_document">
+            </action>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ReformatDocumentFromFixedIndentAction"
+                    id="MarkdownNavigator.ReformatDocumentAsFixedIndent"
+                    text="Reformat Document from Fixed Indent"
+                    description="Reformat current document from Fixed Indent"
+                    icon="MdIcons.EditorActions.Reformat_document">
+            </action>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ReformatDocumentFromGitHubDocumentAction"
+                    id="MarkdownNavigator.ReformatDocumentAsGitHubDocument"
+                    text="Reformat Document from GitHub Document"
+                    description="Reformat current document from GitHub Document"
+                    icon="MdIcons.EditorActions.Reformat_document">
+            </action>
+        </group>
+
+        <group id="MarkdownNavigator.Toolbar.Left" class="com.vladsch.idea.multimarkdown.editor.actions.styling.MarkdownStyleActionGroup"
+               text="Markdown Navigator Editor Actions">
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ToggleWrapOnTypingAction"
+                    id="MarkdownNavigator.ToggleWrapOnTyping"
+                    text="Wrap on Typing"
+                    description="Toggles wrap on typing mode"
+                    icon="MdIcons.EditorActions.Wrap_on_typing">
+            </action>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ToggleBoldAction"
+                    id="MarkdownNavigator.ToggleBold"
+                    text="Toggle Bold Mode"
+                    description="Toggles bold mode on caret/selection"
+                    icon="MdIcons.EditorActions.Bold">
+                <keyboard-shortcut first-keystroke="meta b" keymap="$default"/>
+            </action>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ToggleItalicAction"
+                    id="MarkdownNavigator.ToggleItalic"
+                    text="Toggle Italic Mode"
+                    description="Toggles italic mode on caret/selection"
+                    icon="MdIcons.EditorActions.Italic">
+                <keyboard-shortcut first-keystroke="meta i" keymap="$default"/>
+            </action>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ToggleStrikeThroughAction"
+                    id="MarkdownNavigator.ToggleStrikeThrough"
+                    text="Toggle Strike Through Mode"
+                    description="Toggles strike through mode on caret/selection"
+                    icon="MdIcons.EditorActions.Strike_through">
+            </action>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ToggleUnderlineAction"
+                    id="MarkdownNavigator.ToggleUnderline"
+                    text="Toggle Underline Mode"
+                    description="Toggles underline mode on caret/selection"
+                    icon="MdIcons.EditorActions.Underline">
+            </action>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ToggleSuperscriptAction"
+                    id="MarkdownNavigator.ToggleSuperscript"
+                    text="Toggle Superscript Mode"
+                    description="Toggles superscript mode on caret/selection"
+                    icon="MdIcons.EditorActions.Superscript">
+            </action>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ToggleSubscriptAction"
+                    id="MarkdownNavigator.ToggleSubscript"
+                    text="Toggle Subscript Mode"
+                    description="Toggles subscript mode on caret/selection"
+                    icon="MdIcons.EditorActions.Subscript">
+            </action>
+
+            <separator/>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ToggleCodeSpanAction"
+                    id="MarkdownNavigator.ToggleCodeSpan"
+                    text="Toggle Monospaced (Code Span) Mode"
+                    description="Toggles monospaced mode (rendered as code span) on caret/selection"
+                    icon="MdIcons.EditorActions.Code_span">
+                <keyboard-shortcut first-keystroke="meta o" keymap="$default"/>
+            </action>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.InsertLinkAction"
+                    id="MarkdownNavigator.InsertLink"
+                    text="Insert Link"
+                    description="Insert link on caret/selection"
+                    icon="MdIcons.EditorActions.Link">
+                <keyboard-shortcut first-keystroke="meta l" keymap="$default"/>
+            </action>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.BlockQuoteRemoveAction"
+                    id="MarkdownNavigator.BlockQuoteRemove"
+                    text="Decrease Quote Level"
+                    description="Decrease quote level for item or selection"
+                    icon="MdIcons.EditorActions.Quote_remove">
+                <!--<keyboard-shortcut first-keystroke="meta y" keymap="$default"/>-->
+            </action>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.BlockQuoteAddAction"
+                    id="MarkdownNavigator.BlockQuoteAdd"
+                    text="Increase Quote Level"
+                    description="Increase quote level for item or selection"
+                    icon="MdIcons.EditorActions.Quote_add">
+                <!--<keyboard-shortcut first-keystroke="meta u" keymap="$default"/>-->
+            </action>
+
+            <separator/>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.HeaderLevelUpAction"
+                    id="MarkdownNavigator.HeaderLevelUp"
+                    text="Heading Level up"
+                    description="Increases the heading level on caret/selection"
+                    icon="MdIcons.EditorActions.Header_level_up">
+            </action>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.HeaderLevelDownAction"
+                    id="MarkdownNavigator.HeaderLevelDown"
+                    text="Heading Level down"
+                    description="Increases the heading level on caret/selection"
+                    icon="MdIcons.EditorActions.Header_level_down">
+            </action>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.HeaderToggleTypeAction"
+                    id="MarkdownNavigator.HeaderToggleType"
+                    text="Toggle Heading Type"
+                    description="Toggle heading type between setext and atx"
+                    icon="MdIcons.EditorActions.Header_toggle_type">
+            </action>
+
+            <separator/>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ListUnIndentAction"
+                    id="MarkdownNavigator.ListUnIndent"
+                    text="Decrease List Level"
+                    description="Decrease list item's level"
+                    icon="MdIcons.EditorActions.List_unindent">
+                <keyboard-shortcut first-keystroke="meta y" keymap="$default"/>
+            </action>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ListIndentAction"
+                    id="MarkdownNavigator.ListIndent"
+                    text="Increase List Level"
+                    description="Increase a list item's level"
+                    icon="MdIcons.EditorActions.List_indent">
+                <keyboard-shortcut first-keystroke="meta u" keymap="$default"/>
+            </action>
+
+            <group id="MarkdownNavigator.MarkdownListMenu"
+                   class="com.vladsch.idea.multimarkdown.editor.actions.styling.MdDefaultActionGroup"
+                   text="Markdown List Actions"
+                   popup="true"
+                   icon="MdIcons.EditorActions.Menu_list"
+            >
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ListTightAction"
+                        id="MarkdownNavigator.ListTight"
+                        text="Single Space List"
+                        description="Single space list items"
+                        icon="MdIcons.EditorActions.List_tight">
+                    <!--<keyboard-shortcut first-keystroke="meta y" keymap="$default"/>-->
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ListLooseAction"
+                        id="MarkdownNavigator.ListLoose"
+                        text="Double Space List"
+                        description="Double space list items"
+                        icon="MdIcons.EditorActions.List_loose">
+                    <!--<keyboard-shortcut first-keystroke="meta y" keymap="$default"/>-->
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ListBulletItemsAction"
+                        id="MarkdownNavigator.ListBulletItems"
+                        text="Toggle Bullet List Item"
+                        description="Make into bullet list"
+                        icon="MdIcons.EditorActions.List_bullet_items">
+                    <!--<keyboard-shortcut first-keystroke="meta y" keymap="$default"/>-->
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ListOrderedItemsAction"
+                        id="MarkdownNavigator.ListOrderedItems"
+                        text="Toggle Ordered List Item"
+                        description="Make into an ordered list"
+                        icon="MdIcons.EditorActions.List_ordered_items">
+                    <!--<keyboard-shortcut first-keystroke="meta y" keymap="$default"/>-->
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ListTaskItemsAction"
+                        id="MarkdownNavigator.ListTaskItems"
+                        text="Toggle Task List Item"
+                        description="Make into a task list"
+                        icon="MdIcons.EditorActions.List_task_items">
+                    <!--<keyboard-shortcut first-keystroke="meta y" keymap="$default"/>-->
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ListToggleTaskItemDoneAction"
+                        id="MarkdownNavigator.ListToggleTaskItemDone"
+                        text="Toggle Task Item Done"
+                        description="Toggle task list item's done status"
+                        icon="MdIcons.EditorActions.List_toggle_item_done">
+                    <!--<keyboard-shortcut first-keystroke="meta y" keymap="$default"/>-->
+                </action>
+            </group>
+            <separator/>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ToggleAutoFormatTableAction"
+                    id="MarkdownNavigator.ToggleAutoFormatTable"
+                    text="Auto-Format Table on Typing"
+                    description="Toggle auto-format table on typing option"
+                    icon="MdIcons.EditorActions.AutoFormat_table">
+            </action>
+
+            <group id="MarkdownNavigator.MarkdownTableMenu"
+                   class="com.vladsch.idea.multimarkdown.editor.actions.styling.MdDefaultActionGroup"
+                   text="Markdown Table Actions"
+                   popup="true"
+                   icon="MdIcons.EditorActions.Menu_table"
+            >
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.InsertTableAction"
+                        id="MarkdownNavigator.InsertTable"
+                        text="Insert Table"
+                        description="Insert table on caret/selection"
+                        icon="MdIcons.EditorActions.Insert_table">
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.InsertRowAction"
+                        id="MarkdownNavigator.InsertRow"
+                        text="Insert Table Row"
+                        description="Insert a row into table"
+                        icon="MdIcons.EditorActions.Insert_table_row">
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.InsertColumnLeftAction"
+                        id="MarkdownNavigator.InsertColumn"
+                        text="Insert Table Column on Left"
+                        description="Insert a column into table left of current column"
+                        icon="MdIcons.EditorActions.Insert_table_column">
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.InsertColumnRightAction"
+                        id="MarkdownNavigator.InsertColumnRight"
+                        text="Insert Table Column on Right"
+                        description="Insert a column into table right of current column"
+                        icon="MdIcons.EditorActions.Insert_table_column_right">
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.DeleteRowAction"
+                        id="MarkdownNavigator.DeleteRow"
+                        text="Delete Table Row"
+                        description="Delete a row from the table"
+                        icon="MdIcons.EditorActions.Delete_table_row">
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.DeleteColumnAction"
+                        id="MarkdownNavigator.DeleteColumn"
+                        text="Delete Table Column"
+                        description="Delete a column from the table"
+                        icon="MdIcons.EditorActions.Delete_table_column">
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.MoveColumnLeftAction"
+                        id="MarkdownNavigator.MoveColumnLeft"
+                        text="Move Table Column Left"
+                        description="Move a column to the left"
+                        icon="MdIcons.EditorActions.Move_table_column_left">
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.MoveColumnRightAction"
+                        id="MarkdownNavigator.MoveColumnRight"
+                        text="Move Table Column Right"
+                        description="Move a column to the right"
+                        icon="MdIcons.EditorActions.Move_table_column_right">
+                </action>
+            </group>
+
+            <separator/>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ReformatElementAction"
+                    id="MarkdownNavigator.ReformatElement"
+                    text="Format Element"
+                    description="Format current paragraph, table or table of contents"
+                    icon="MdIcons.EditorActions.Reformat_element">
+                <!--<keyboard-shortcut first-keystroke="ctrl alt l" keymap="$default"/>-->
+                <add-to-group group-id="MarkdownNavigator.FormatMarkdownMenu"/>
+            </action>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ReformatDocumentAction"
+                    id="MarkdownNavigator.ReformatDocument"
+                    text="Format Document"
+                    description="Format current document"
+                    icon="MdIcons.EditorActions.Reformat_document">
+                <!--<keyboard-shortcut first-keystroke="ctrl alt l" keymap="$default"/>-->
+                <add-to-group group-id="MarkdownNavigator.FormatMarkdownMenu"/>
+            </action>
+
+            <separator/>
+
+            <group id="MarkdownNavigator.MarkdownMiscellaneousMenu"
+                   class="com.vladsch.idea.multimarkdown.editor.actions.styling.MdDefaultActionGroup"
+                   text="Markdown Miscellaneous Actions"
+                   popup="true"
+                   icon="MdIcons.EditorActions.Menu_misc">
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ShowTextHexAction"
+                        id="MarkdownNavigator.ShowTextHex"
+                        text="Show Hex for Selection"
+                        description="Show hex character view of selected text"
+                        icon="MdIcons.EditorActions.Show_text_hex">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ToggleUseActualWidthAction"
+                        id="MarkdownNavigator.ToggleUseActualWidth"
+                        text="Toggle Use Actual Character Width"
+                        description="Toggles the use of actual display font character width for wrapping and table formatting"
+                        icon="MdIcons.EditorActions.Toggle_use_char_width">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift s" keymap="$default"/>-->
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.BalloonTestAction"
+                        id="MarkdownNavigator.BalloonTest"
+                        text="Balloon Notification Test"
+                        description="Use the current document text as notification balloon"
+                        icon="MdIcons.EditorActions.Balloon_test">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift s" keymap="$default"/>-->
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.DebugTextBoundsToggleStateAction"
+                        id="MarkdownNavigator.DebugTextBoundsToggleState"
+                        text="Show Text Bounds"
+                        description="Shows the text bounds for formatting at caret position."
+                        icon="MdIcons.EditorActions.Debug_text_bounds">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.SizePreferencesDialogAction"
+                        id="MarkdownNavigator.SizePreferencesDialog"
+                        text="Size Preferences Dialog"
+                        description="Sets preferences dialog to the configured size."
+                        icon="MdIcons.EditorActions.Preferences_size">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ExceptionTestAction"
+                        id="MarkdownNavigator.ExceptionTest"
+                        text="Exception Test"
+                        description="Exception test"
+                        icon="MdIcons.EditorActions.Exception_test">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift s" keymap="$default"/>-->
+                </action>
+
+                <separator/>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.SelectFileTestAction"
+                        id="MarkdownNavigator.SelectFileTest"
+                        text="Copy Test Markdown Files"
+                        description="Copy unique markdown files to Debug Test Directory"
+                        icon="MdIcons.EditorActions.Select_file_tester">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.OpenFileTestAction"
+                        id="MarkdownNavigator.OpenFileTest"
+                        text="Open Debug Test Markdown Files"
+                        description="Open Debug Test markdown files in project to test preview rendering."
+                        icon="MdIcons.EditorActions.Open_file_tester">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
+                </action>
+
+            </group>
+
+            <group id="MarkdownNavigator.MarkdownCopyMenu"
+                   class="com.vladsch.idea.multimarkdown.editor.actions.styling.MdDefaultActionGroup"
+                   text="Markdown Copy Actions"
+                   popup="true"
+                   icon="MdIcons.EditorActions.Menu_copy">
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.CopyJiraFormattedAction"
+                        id="MarkdownNavigator.CopyJiraFormatted"
+                        text="Copy Markdown as JIRA Formatted"
+                        description="Copy markdown document or selection as JIRA formatted text."
+                        icon="MdIcons.EditorActions.Copy_jira">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
+                    <add-to-group group-id="MarkdownNavigator.CopyMarkdownMenu"/>
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.CopyNoSoftLineBreaksAction"
+                        id="MarkdownNavigator.CopyForHardBreaks"
+                        text="Copy Markdown Without Soft Line Breaks"
+                        description="Copy markdown document or selection without soft line breaks."
+                        icon="MdIcons.EditorActions.Copy_without_soft_breaks">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
+                    <add-to-group group-id="MarkdownNavigator.CopyMarkdownMenu"/>
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.CopyYouTrackFormattedAction"
+                        id="MarkdownNavigator.CopyYouTrackFormatted"
+                        text="Copy Markdown as YouTrack Formatted"
+                        description="Copy markdown document or selection as YouTrack formatted text."
+                        icon="MdIcons.EditorActions.Copy_you_track">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
+                    <add-to-group group-id="MarkdownNavigator.CopyMarkdownMenu"/>
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.CopyHtmlMimeFormattedAction"
+                        id="MarkdownNavigator.CopyHtmlMimeFormatted"
+                        text="Copy Markdown as HTML Mime Content"
+                        description="Copy markdown document or selection as HTML mime formatted text."
+                        icon="MdIcons.EditorActions.Copy_html_mime">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
+                    <add-to-group group-id="MarkdownNavigator.CopyMarkdownMenu"/>
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.CopyHtmlMimeExportedAction"
+                        id="MarkdownNavigator.CopyHtmlMimeExported"
+                        text="Copy Exported as HTML Mime Content"
+                        description="Copy markdown document exported HTML as HTML mime formatted text."
+                        icon="MdIcons.EditorActions.Copy_exported_html_mime">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
+                    <add-to-group group-id="MarkdownNavigator.CopyMarkdownMenu"/>
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ExportHtmlAction"
+                        id="MarkdownNavigator.ExportHtml"
+                        text="Export Rendered HTML"
+                        description="Export rendered HTML"
+                        icon="MdIcons.EditorActions.Export_html">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.ExportPdfAction"
+                        id="MarkdownNavigator.ExportPdf"
+                        text="Export Rendered Markdown to PDF"
+                        description="Export rendered Markdown to PDF"
+                        icon="MdIcons.EditorActions.Export_pdf">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
+                    <add-to-group group-id="MarkdownNavigator.ExportMarkdownMenu"/>
+                </action>
+
+                <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.TranslateDocumentAction"
+                        id="MarkdownNavigator.TranslateDocument"
+                        text="Translate Document"
+                        description="Translate document powered by yandex.translate"
+                        icon="MdIcons.EditorActions.Yandex_document">
+                    <!--<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>-->
+                    <add-to-group group-id="MarkdownNavigator.ExportMarkdownMenu"/>
+                </action>
+
+                <!--
+                            <action class="com.vladsch.idea.multimarkdown.editor.actions.styling.PluginListAction"
+                                    id="MarkdownNavigator.PluginList"
+                                    text="Append Plugin List Table"
+                                    description="Append Plugin List Table"
+                                    icon="MdIcons.EditorActions.Plugin_list">
+                                &lt;!&ndash;<keyboard-shortcut first-keystroke="ctrl shift b" keymap="$default"/>&ndash;&gt;
+                            </action>
+                -->
+            </group>
+        </group>
+
+        <!-- Table Actions -->
+
+        <action class="com.vladsch.idea.multimarkdown.editor.actions.editorLayout.CyclicSplitLayoutChangeAction"
+                id="MarkdownNavigator.CyclicSplitLayoutChange"
+                text="Cycle Split Layout"
+                description="Toggle markdown editor layout through different values (editor only, preview only, wysiwyg split)"
+                icon="MdIcons.Layout.Cycle_editor_preview">
+        </action>
+
+        <action class="com.vladsch.idea.multimarkdown.editor.actions.editorLayout.ToggleEditorLayoutChangeAction"
+                text="Toggle Editor Layout"
+                id="MarkdownNavigator.ToggleSplitLayoutChange"
+                description="Toggle between editor only and editor &amp; preview"
+                icon="MdIcons.Layout.Toggle_editor_preview">
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl p"/>
+        </action>
+
+        <group id="MarkdownNavigator.Toolbar.Right" class="com.intellij.openapi.actionSystem.DefaultActionGroup"
+               text="Markdown Navigator Editor Layout Actions">
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.editorLayout.EditorOnlyLayoutChangeAction"
+                    id="MarkdownNavigator.EditorOnlyLayoutChange"
+                    text="Show Editor Only"
+                    description="Sets markdown editor layout to show editor only"
+                    icon="MdIcons.Layout.Editor_only">
+            </action>
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.editorLayout.PreviewOnlyLayoutChangeAction"
+                    id="MarkdownNavigator.PreviewOnlyLayoutChange"
+                    text="Show Preview Only"
+                    description="Sets markdown editor layout to show preview only"
+                    icon="MdIcons.Layout.Preview_only">
+            </action>
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.editorLayout.EditorAndPreviewLayoutChangeAction"
+                    id="MarkdownNavigator.EditorAndPreviewLayoutChange"
+                    text="Show Editor and Preview"
+                    description="Sets markdown editor layout to show editor and preview in split"
+                    icon="MdIcons.Layout.Editor_preview">
+            </action>
+
+            <separator/>
+
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.editorLayout.ToggleEditorSplitLayoutAction"
+                    text="Toggle Editor Split Orientation"
+                    id="MarkdownNavigator.ToggleEditorSplitLayout"
+                    description="Toggle editor split orientation"
+                    icon="MdIcons.Layout.Split_preview_horizontal"
+            >
+            </action>
+
+            <separator/>
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.editorLayout.HtmlPreviewChangeAction"
+                    id="MarkdownNavigator.HtmlPreviewChange"
+                    text="Show HTML Preview"
+                    description="Sets preview pane to show rendered HTML"
+                    icon="MdIcons.Layout.Html_preview">
+            </action>
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.editorLayout.ModifiedHtmlTextChangeAction"
+                    id="MarkdownNavigator.ModifiedHtmlTextChange"
+                    text="Show HTML Text Used for Browser"
+                    description="Sets preview pane to show HTML text as used in browser rendered preview"
+                    icon="MdIcons.Layout.Html_modified">
+            </action>
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.editorLayout.UnmodifiedHtmlTextChangeAction"
+                    id="MarkdownNavigator.UnmodifiedHtmlTextChange"
+                    text="Show Plain HTML as Generated by Parser"
+                    description="Sets preview pane to show plain HTML text as generated by parser"
+                    icon="MdIcons.Layout.Html_unmodified">
+            </action>
+            <separator/>
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.editorLayout.PrintPreviewAction"
+                    id="MarkdownNavigator.PrintPreviewAction"
+                    text="Print HTML Preview"
+                    description="Prints HTML Preview"
+                    icon="MdIcons.Layout.Print_preview">
+            </action>
+            <separator/>
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.editorLayout.DebugPreviewAction"
+                    id="MarkdownNavigator.DebugPreviewAction"
+                    text="Debug HTML Preview"
+                    description="Launches Chrome to debug HTML Preview"
+                    icon="MdIcons.Layout.Debug_preview">
+            </action>
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.editorLayout.DebugBreakInjectionOnLoadAction"
+                    id="MarkdownNavigator.DebugBreakInjectionOnLoadAction"
+                    text="Debug Break Injected On Page Load"
+                    description="Will pause execution on page load at point of injection"
+                    icon="MdIcons.Layout.Debug_breakInjection">
+            </action>
+            <action class="com.vladsch.idea.multimarkdown.editor.actions.editorLayout.DebugBreakOnLoadAction"
+                    id="MarkdownNavigator.DebugBreakOnLoadAction"
+                    text="Debug Break On Page Load"
+                    description="Will pause execution on page load"
+                    icon="MdIcons.Layout.Debug_break">
+            </action>
+        </group>
+
+        <action class="com.vladsch.idea.multimarkdown.editor.actions.editorLayout.CyclicPreviewChangeAction"
+                id="MarkdownNavigator.CyclicPreviewChange"
+                text="Cycle Preview Content"
+                description="Cycle markdown editor preview through different HTML previews (rendered, browser, plain)"
+                icon="MdIcons.Layout.Cycle_html">
+        </action>
+
+        <action class="com.vladsch.idea.multimarkdown.editor.actions.navigation.NextTableCellAction"
+                id="MarkdownNavigator.NextTableCell"
+                text="Move Caret to Next Table Cell"
+                description="Move caret to next table cell">
+        </action>
+        <action class="com.vladsch.idea.multimarkdown.editor.actions.navigation.NextTableCellEndAction"
+                id="MarkdownNavigator.NextTableCellEnd"
+                text="Move Caret to Next Table Cell End"
+                description="Move caret to next table cell end">
+        </action>
+        <action class="com.vladsch.idea.multimarkdown.editor.actions.navigation.NextTableCellEndWithSelectionAction"
+                id="MarkdownNavigator.NextTableCellEndWithSelection"
+                text="Move Caret to Next Table Cell End With Selection "
+                description="Move caret to next table cell end With selection">
+        </action>
+        <action class="com.vladsch.idea.multimarkdown.editor.actions.navigation.NextTableCellStartAction"
+                id="MarkdownNavigator.NextTableCellStart"
+                text="Move Caret to Next Table Cell Start"
+                description="Move caret to next table cell start ">
+        </action>
+        <action class="com.vladsch.idea.multimarkdown.editor.actions.navigation.NextTableCellStartWithSelectionAction"
+                id="MarkdownNavigator.NextTableCellStartWithSelection"
+                text="Move Caret to Next Table Cell Start With Selection "
+                description="Move caret to next table cell start With selection ">
+        </action>
+        <action class="com.vladsch.idea.multimarkdown.editor.actions.navigation.NextTableCellWithSelectionAction"
+                id="MarkdownNavigator.NextTableCellWithSelection"
+                text="Move Caret to Next Table Cell With Selection "
+                description="Move caret to next table cell With selection ">
+        </action>
+        <action class="com.vladsch.idea.multimarkdown.editor.actions.navigation.PreviousTableCellAction"
+                id="MarkdownNavigator.PreviousTableCell"
+                text="Move Caret to Previous Table Cell"
+                description="Move caret to previous table cell">
+        </action>
+        <action class="com.vladsch.idea.multimarkdown.editor.actions.navigation.PreviousTableCellEndAction"
+                id="MarkdownNavigator.PreviousTableCellEnd"
+                text="Move Caret to Previous Table Cell End"
+                description="Move caret to previous table cell end">
+        </action>
+        <action class="com.vladsch.idea.multimarkdown.editor.actions.navigation.PreviousTableCellEndWithSelectionAction"
+                id="MarkdownNavigator.PreviousTableCellEndWithSelection"
+                text="Move Caret to Previous Table Cell End With Selection"
+                description="Move caret to previous table cell end With selection">
+        </action>
+        <action class="com.vladsch.idea.multimarkdown.editor.actions.navigation.PreviousTableCellStartAction"
+                id="MarkdownNavigator.PreviousTableCellStart"
+                text="Move Caret to Previous Table Cell Start"
+                description="Move caret to previous table cell start">
+        </action>
+        <action class="com.vladsch.idea.multimarkdown.editor.actions.navigation.PreviousTableCellStartWithSelectionAction"
+                id="MarkdownNavigator.PreviousTableCellStartWithSelection"
+                text="Move Caret to Previous Table Cell Start With Selection"
+                description="Move caret to previous table cell start With selection">
+        </action>
+        <action class="com.vladsch.idea.multimarkdown.editor.actions.navigation.PreviousTableCellWithSelectionAction"
+                id="MarkdownNavigator.PreviousTableCellWithSelection"
+                text="Move Caret to Previous Table Cell With Selection"
+                description="Move caret to previous table cell With selection">
+        </action>
+    </actions>
+
+    <!--<xi:include href="/META-INF/configurables.xml" xpointer="xpointer(/idea-multimarkdown/*)"/>-->
+    <extensions defaultExtensionNs="com.intellij">
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.flexmark.ToggleFlexmarkExampleIgnoreIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.flexmark</categoryKey>
+            <descriptionDirectoryName>ToggleFlexmarkExampleIgnoreIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.flexmark.EditFlexmarkExampleOptionsIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.flexmark</categoryKey>
+            <descriptionDirectoryName>EditFlexmarkExampleOptionsIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.list.ToggleTaskItemDoneIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.lists</categoryKey>
+            <descriptionDirectoryName>ToggleTaskItemDoneIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.list.DeleteEmptyListItemsIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.lists</categoryKey>
+            <descriptionDirectoryName>DeleteEmptyListItemsIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.header.EqualizeSetextMarkerIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.headers</categoryKey>
+            <descriptionDirectoryName>EqualizeSetextMarkerIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.header.ChangeToSetextHeaderIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.headers</categoryKey>
+            <descriptionDirectoryName>ChangeToSetextHeaderIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.header.ChangeToAtxHeaderIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.headers</categoryKey>
+            <descriptionDirectoryName>ChangeToAtxHeaderIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.header.AddExplicitIdToHeaderIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.headers</categoryKey>
+            <descriptionDirectoryName>AddExplicitIdToHeaderIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.fenced.ConvertToFencedCodeIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.fenced</categoryKey>
+            <descriptionDirectoryName>ConvertToFencedCodeIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.fenced.ConvertToGravizoUmlImageIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.fenced</categoryKey>
+            <descriptionDirectoryName>ConvertToGravizoUmlImageIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.fenced.ConvertToCodeCogsMathImageIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.fenced</categoryKey>
+            <descriptionDirectoryName>ConvertToCodeCogsMathImageIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.fenced.CopyPlantUmlImageIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.fenced</categoryKey>
+            <descriptionDirectoryName>CopyPlantUmlImageIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.image.ConvertToFencedCodePlantUmlIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.image-links</categoryKey>
+            <descriptionDirectoryName>ConvertToFencedCodePlantUmlIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.image.ConvertToFencedCodeMathIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.image-links</categoryKey>
+            <descriptionDirectoryName>ConvertToFencedCodeMathIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.image.ConvertToInlineMathIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.image-links</categoryKey>
+            <descriptionDirectoryName>ConvertToInlineMathIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.header.RemoveExplicitIdFromHeaderIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.headers</categoryKey>
+            <descriptionDirectoryName>RemoveExplicitIdFromHeaderIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.html.ChangeHtmlToMarkdownIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.html</categoryKey>
+            <descriptionDirectoryName>ChangeHtmlToMarkdownIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.html.ChangeMarkdownToHtmlIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.html</categoryKey>
+            <descriptionDirectoryName>ChangeMarkdownToHtmlIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.html.ChangeAnchorTagToAttributesIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.html</categoryKey>
+            <descriptionDirectoryName>ChangeAnchorTagToAttributesIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.html.ChangeAttributesToAnchorTagIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.html</categoryKey>
+            <descriptionDirectoryName>ChangeAttributesToAnchorTagIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.reference.InlineReferenceIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.references</categoryKey>
+            <descriptionDirectoryName>InlineReferenceIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.reference.MismatchedReferenceCaseIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.references</categoryKey>
+            <descriptionDirectoryName>MismatchedReferenceCaseIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.reference.RedundantReferenceLinkTextIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.references</categoryKey>
+            <descriptionDirectoryName>RedundantReferenceLinkTextIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.text.AddAbbreviationIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.text</categoryKey>
+            <descriptionDirectoryName>AddAbbreviationIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.reference.ChangeLinkToReferenceIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.links</categoryKey>
+            <descriptionDirectoryName>ChangeLinkToReferenceIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.reference.DeleteUnusedReferenceIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.references</categoryKey>
+            <descriptionDirectoryName>DeleteUnusedReferenceIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.wiki.ChangeExplicitToWikiLinkIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.links</categoryKey>
+            <descriptionDirectoryName>ChangeExplicitToWikiLinkIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.wiki.ChangeWikiToExplicitLinkIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.wiki</categoryKey>
+            <descriptionDirectoryName>ChangeWikiToExplicitLinkIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.wiki.DeleteUnusedWikiLinkTextIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.wiki</categoryKey>
+            <descriptionDirectoryName>DeleteUnusedWikiLinkTextIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.wiki.DeleteResolvableWikiLinkTextIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.wiki</categoryKey>
+            <descriptionDirectoryName>DeleteResolvableWikiLinkTextIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.wiki.DeleteWikiLinkRefIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.wiki</categoryKey>
+            <descriptionDirectoryName>DeleteWikiLinkRefIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.wiki.SwapWikiLinkTextAndRefIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.wiki</categoryKey>
+            <descriptionDirectoryName>SwapWikiLinkTextAndRefIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.link.ChangeLinkRefFormatToPageRelIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.links</categoryKey>
+            <descriptionDirectoryName>ChangeLinkRefFormatToPageRelIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.link.ChangeLinkAndAnchorIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.links</categoryKey>
+            <descriptionDirectoryName>ChangeLinkAndAnchorIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.link.ChangeAutoToExplicitLinkIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.links</categoryKey>
+            <descriptionDirectoryName>ChangeAutoToExplicitLinkIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.link.ChangeLinkToTextIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.links</categoryKey>
+            <descriptionDirectoryName>ChangeLinkToTextIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.link.ChangeLinkRefFormatToRawIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.links</categoryKey>
+            <descriptionDirectoryName>ChangeLinkRefFormatToRawIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.link.ChangeLinkRefFormatToRepoRelIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.links</categoryKey>
+            <descriptionDirectoryName>ChangeLinkRefFormatToRepoRelIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.link.ChangeLinkRefFormatToShorterIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.links</categoryKey>
+            <descriptionDirectoryName>ChangeLinkRefFormatToShorterIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.link.ChangeLinkRefFormatToUrlIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.links</categoryKey>
+            <descriptionDirectoryName>ChangeLinkRefFormatToUrlIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.link.ChangeLinkRefFormatToUriIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.links</categoryKey>
+            <descriptionDirectoryName>ChangeLinkRefFormatToUriIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.toc.EditTocOptionsIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.toc</categoryKey>
+            <descriptionDirectoryName>EditTocOptionsIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.text.ChangeNbSpEntityToSpaceIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.text</categoryKey>
+            <descriptionDirectoryName>ChangeNbSpEntityToSpaceIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.text.ChangeTextToTypographicIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.text</categoryKey>
+            <descriptionDirectoryName>ChangeTextToTypographicIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.text.ChangeTextToAutoLinkIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.text</categoryKey>
+            <descriptionDirectoryName>ChangeTextToAutoLinkIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.text.ChangeTypographicToTextIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.text</categoryKey>
+            <descriptionDirectoryName>ChangeTypographicToTextIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.image.ModifyImageIntention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.image-links</categoryKey>
+            <descriptionDirectoryName>ModifyImageIntention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.image.DecodeImageBase64Intention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.image-links</categoryKey>
+            <descriptionDirectoryName>DecodeImageBase64Intention</descriptionDirectoryName>
+        </intentionAction>
+
+        <intentionAction>
+            <className>com.vladsch.idea.multimarkdown.intentions.image.EncodeImageBase64Intention</className>
+            <bundleName>com.vladsch.idea.multimarkdown.intentions.IntentionsBundle</bundleName>
+            <categoryKey>intention.category.image-links</categoryKey>
+            <descriptionDirectoryName>EncodeImageBase64Intention</descriptionDirectoryName>
+        </intentionAction>
+
+        <applicationService serviceImplementation="com.vladsch.idea.multimarkdown.settings.MdApplicationSharedSettings"/>
+        <applicationService serviceImplementation="com.vladsch.idea.multimarkdown.settings.MdApplicationLocalSettings"/>
+        <applicationService serviceImplementation="com.vladsch.idea.multimarkdown.settings.MdApplicationSettings"/>
+        <!--<applicationConfigurable instance="com.vladsch.idea.multimarkdown.settings.MultiMarkdownGlobalSettingsConfigurable"/>-->
+
+        <projectService serviceImplementation="com.vladsch.idea.multimarkdown.settings.RenderingProfileSynchronizer"/>
+        <projectService serviceImplementation="com.vladsch.idea.multimarkdown.settings.MdSettings"/>
+        <projectService serviceImplementation="com.vladsch.idea.multimarkdown.util.MdExportedFilesManager"/>
+        <projectService serviceImplementation="com.vladsch.idea.multimarkdown.settings.MdHistoryManager"/>
+        <projectService serviceImplementation="com.vladsch.idea.multimarkdown.util.MdExportedFiles"/>
+
+        <schemeExporter
+              name="Intellij IDEA color scheme, reduced markdown (.icls)"
+              schemeClass="com.intellij.openapi.editor.colors.EditorColorsScheme"
+              implementationClass="com.vladsch.idea.multimarkdown.highlighter.MdColorSchemeExporter"
+              order="first"
+        />
+
+        <applicationConfigurable id="MarkdownNavigator.Settings.Application"
+                                 bundle="com.vladsch.idea.multimarkdown.localization.strings"
+                                 groupId="language"
+                                 key="language.name"
+                                 instance="com.vladsch.idea.multimarkdown.settings.MdApplicationConfigurable">
+        </applicationConfigurable>
+
+        <applicationConfigurable id="MarkdownNavigator.Settings.Editor"
+                                 parentId="MarkdownNavigator.Settings.Application"
+                                 groupWeight="0"
+                                 bundle="com.vladsch.idea.multimarkdown.localization.strings"
+                                 key="settings.markdown.editor.name"
+                                 instance="com.vladsch.idea.multimarkdown.settings.MdEditorConfigurable"/>
+
+        <projectConfigurable id="MarkdownNavigator.Settings.Preview"
+                             parentId="MarkdownNavigator.Settings.Application"
+                             groupWeight="-1"
+                             bundle="com.vladsch.idea.multimarkdown.localization.strings"
+                             key="settings.markdown.preview.name"
+                             nonDefaultProject="false"
+                             instance="com.vladsch.idea.multimarkdown.settings.MdPreviewConfigurable"/>
+
+        <projectConfigurable id="MarkdownNavigator.Settings.Parser"
+                             parentId="MarkdownNavigator.Settings.Application"
+                             groupWeight="-2"
+                             bundle="com.vladsch.idea.multimarkdown.localization.strings"
+                             key="settings.markdown.parser.name"
+                             nonDefaultProject="false"
+                             instance="com.vladsch.idea.multimarkdown.settings.MdParserConfigurable"/>
+
+        <projectConfigurable id="MarkdownNavigator.Settings.Css"
+                             parentId="MarkdownNavigator.Settings.Application"
+                             groupWeight="-3"
+                             bundle="com.vladsch.idea.multimarkdown.localization.strings"
+                             key="settings.markdown.css.name"
+                             nonDefaultProject="false"
+                             instance="com.vladsch.idea.multimarkdown.settings.MdCssConfigurable"/>
+
+        <projectConfigurable id="MarkdownNavigator.Settings.Html"
+                             parentId="MarkdownNavigator.Settings.Application"
+                             groupWeight="-4"
+                             bundle="com.vladsch.idea.multimarkdown.localization.strings"
+                             key="settings.markdown.html.name"
+                             nonDefaultProject="false"
+                             instance="com.vladsch.idea.multimarkdown.settings.MdHtmlConfigurable"/>
+
+        <projectConfigurable id="MarkdownNavigator.Settings.HtmlExport"
+                             parentId="MarkdownNavigator.Settings.Application"
+                             groupWeight="-5"
+                             bundle="com.vladsch.idea.multimarkdown.localization.strings"
+                             key="settings.markdown.html-export.name"
+                             nonDefaultProject="false"
+                             instance="com.vladsch.idea.multimarkdown.settings.MdHtmlExportConfigurable"/>
+
+        <projectConfigurable id="MarkdownNavigator.Settings.LikMap"
+                             parentId="MarkdownNavigator.Settings.Application"
+                             groupWeight="-6"
+                             bundle="com.vladsch.idea.multimarkdown.localization.strings"
+                             key="settings.markdown.link-map.name"
+                             nonDefaultProject="false"
+                             dynamic="true"
+                             instance="com.vladsch.idea.multimarkdown.settings.fileref.MdLinkMapConfigurable"/>
+
+        <projectConfigurable id="MarkdownNavigator.Settings.Annotator"
+                             parentId="MarkdownNavigator.Settings.Application"
+                             groupWeight="-7"
+                             bundle="com.vladsch.idea.multimarkdown.localization.strings"
+                             key="settings.markdown.annotator.name"
+                             nonDefaultProject="false"
+                             instance="com.vladsch.idea.multimarkdown.settings.MdAnnotatorConfigurable"/>
+
+        <projectConfigurable id="MarkdownNavigator.Settings.Rendering"
+                             parentId="MarkdownNavigator.Settings.Application"
+                             groupWeight="-8"
+                             bundle="com.vladsch.idea.multimarkdown.localization.strings"
+                             key="settings.markdown.rendering.name"
+                             nonDefaultProject="true"
+                             dynamic="true"
+                             instance="com.vladsch.idea.multimarkdown.settings.profile.RenderingProfilesProjectConfigurable"/>
+
+        <applicationConfigurable id="MarkdownNavigator.Settings.Notifications"
+                                 parentId="MarkdownNavigator.Settings.Application"
+                                 groupWeight="-10"
+                                 bundle="com.vladsch.idea.multimarkdown.localization.strings"
+                                 key="settings.markdown.notification.name"
+                                 instance="com.vladsch.idea.multimarkdown.settings.MdNotificationConfigurable"/>
+
+        <applicationConfigurable id="MarkdownNavigator.Settings.Debug"
+                                 parentId="MarkdownNavigator.Settings.Application"
+                                 groupWeight="-20"
+                                 bundle="com.vladsch.idea.multimarkdown.localization.strings"
+                                 key="settings.markdown.debug.name"
+                                 instance="com.vladsch.idea.multimarkdown.settings.MdDebugConfigurable"/>
+
+        <applicationConfigurable id="MarkdownNavigator.Settings.Diagnostics"
+                                 parentId="MarkdownNavigator.Settings.Application"
+                                 groupWeight="-21"
+                                 bundle="com.vladsch.idea.multimarkdown.localization.strings"
+                                 key="settings.markdown.diagnostic.name"
+                                 instance="com.vladsch.idea.multimarkdown.settings.MdDiagnosticConfigurable"/>
+
+        <applicationConfigurable id="MarkdownNavigator.Settings.Notices"
+                                 parentId="MarkdownNavigator.Settings.Application"
+                                 groupWeight="-31"
+                                 bundle="com.vladsch.idea.multimarkdown.localization.strings"
+                                 key="settings.markdown.notices.name"
+                                 instance="com.vladsch.idea.multimarkdown.settings.MdNoticesConfigurable"/>
+
+        <applicationService serviceImplementation="com.vladsch.idea.multimarkdown.util.MdCancelableJobScheduler"/>
+
+        <!-- Inspections -->
+        <localInspection groupPath="Markdown" language="Markdown" shortName="PossibleListItem" bundle="com.vladsch.idea.multimarkdown.inspections.InspectionsBundle" key="inspection.possible-list-item"
+                         id="markdown.possible-list"
+                         groupKey="group.names.whitespace-issues" enabledByDefault="true" level="WEAK WARNING" runForWholeFile="false"
+                         implementationClass="com.vladsch.idea.multimarkdown.inspections.list.PossibleListItemInspection"/>
+
+        <localInspection groupPath="Markdown" language="Markdown" shortName="ListNeedsBlankLine" bundle="com.vladsch.idea.multimarkdown.inspections.InspectionsBundle" key="inspection.list-items.needs-blank-line"
+                         id="markdown.list-needs-blank-line"
+                         groupKey="group.names.whitespace-issues" enabledByDefault="true" level="WARNING" runForWholeFile="false"
+                         implementationClass="com.vladsch.idea.multimarkdown.inspections.list.ListNeedsBlankLineInspection"/>
+
+        <localInspection groupPath="Markdown" language="Markdown" shortName="InconsistentListItems" bundle="com.vladsch.idea.multimarkdown.inspections.InspectionsBundle" key="inspection.list-items.inconsistent-items"
+                         id="markdown.inconsistent-list-items"
+                         groupKey="group.names.whitespace-issues" enabledByDefault="true" level="WEAK WARNING" runForWholeFile="false"
+                         implementationClass="com.vladsch.idea.multimarkdown.inspections.list.InconsistentListItemsInspection"/>
+
+        <localInspection groupPath="Markdown" language="Markdown" shortName="OldGitHubTaskItemReference" bundle="com.vladsch.idea.multimarkdown.inspections.InspectionsBundle" key="inspection.list-items.old-github.task-item-reference.name"
+                         id="markdown.old-github.task-item-reference"
+                         groupKey="group.names.github" enabledByDefault="true" level="WARNING" runForWholeFile="false"
+                         implementationClass="com.vladsch.idea.multimarkdown.inspections.table.OldGitHubTaskItemReferenceInspection"/>
+
+        <localInspection groupPath="Markdown" language="Markdown" shortName="ListItemNeedsSpace" bundle="com.vladsch.idea.multimarkdown.inspections.InspectionsBundle" key="inspection.list-items.item-needs-space"
+                         id="markdown.list-item-needs-space"
+                         groupKey="group.names.whitespace-issues" enabledByDefault="true" level="WARNING" runForWholeFile="false"
+                         implementationClass="com.vladsch.idea.multimarkdown.inspections.list.ListItemNeedsSpaceInspection"/>
+
+        <localInspection groupPath="Markdown" language="Markdown" shortName="ListItemNeedsMoreIndentation" bundle="com.vladsch.idea.multimarkdown.inspections.InspectionsBundle" key="inspection.list-items.item-needs-more-indentation"
+                         id="markdown.list-item-needs-more-indentation"
+                         groupKey="group.names.whitespace-issues" enabledByDefault="true" level="WARNING" runForWholeFile="false"
+                         implementationClass="com.vladsch.idea.multimarkdown.inspections.list.ListItemNeedsMoreIndentationInspection"/>
+
+        <localInspection groupPath="Markdown" language="Markdown" shortName="GitHubTable" bundle="com.vladsch.idea.multimarkdown.inspections.InspectionsBundle" key="inspection.github.tables"
+                         id="markdown.github.tables"
+                         enabledByDefault="true" level="WEAK WARNING" runForWholeFile="false"
+                         groupKey="group.names.github"
+                         implementationClass="com.vladsch.idea.multimarkdown.inspections.table.GitHubTableInspection"/>
+
+        <localInspection groupPath="Markdown" language="Markdown" shortName="DuplicateHeadingId" bundle="com.vladsch.idea.multimarkdown.inspections.InspectionsBundle" key="inspection.duplicate.headings"
+                         id="markdown.duplicate-heading-ids"
+                         enabledByDefault="true" level="WARNING" runForWholeFile="false"
+                         groupKey="group.names.reference-issues"
+                         implementationClass="com.vladsch.idea.multimarkdown.inspections.heading.DuplicateHeadingIdInspection"/>
+
+        <localInspection groupPath="Markdown" language="Markdown" shortName="TocNotSimToc" bundle="com.vladsch.idea.multimarkdown.inspections.InspectionsBundle" key="inspection.toc.not.sim-toc"
+                         id="markdown.toc-not-sim-toc"
+                         enabledByDefault="true" level="WARNING" runForWholeFile="false"
+                         groupKey="group.names.syntax-issues"
+                         implementationClass="com.vladsch.idea.multimarkdown.inspections.toc.TocNotSimTocInspection"/>
+
+        <localInspection groupPath="Markdown" language="Markdown" shortName="LinkTextDoesNotMatchHeading" bundle="com.vladsch.idea.multimarkdown.inspections.InspectionsBundle" key="inspection.link.text.does.not.match.heading"
+                         id="markdown.link-text-does-not-match-heading"
+                         enabledByDefault="true" level="WEAK WARNING" runForWholeFile="false"
+                         groupKey="group.names.reference-issues"
+                         implementationClass="com.vladsch.idea.multimarkdown.inspections.heading.LinkTextDoesNotMatchHeadingInspection"/>
+
+        <localInspection groupPath="Markdown" language="Markdown" shortName="DuplicateAnchorId" bundle="com.vladsch.idea.multimarkdown.inspections.InspectionsBundle" key="inspection.duplicate.anchors"
+                         id="markdown.duplicate-anchor-ids"
+                         enabledByDefault="false" level="WARNING" runForWholeFile="false"
+                         groupKey="group.names.reference-issues"
+                         implementationClass="com.vladsch.idea.multimarkdown.inspections.link.DuplicateAnchorIdInspection"/>
+
+        <localInspection groupPath="Markdown" language="Markdown" shortName="UnwrappedAutoLink" bundle="com.vladsch.idea.multimarkdown.inspections.InspectionsBundle" key="inspection.unwrapped.auto.link"
+                         id="markdown.unwrapped-auto-links"
+                         enabledByDefault="true" level="WARNING" runForWholeFile="false"
+                         groupKey="group.names.performance-issues"
+                         implementationClass="com.vladsch.idea.multimarkdown.inspections.link.UnwrappedAutoLinkInspection"/>
+
+        <localInspection groupPath="Markdown" language="Markdown" shortName="InvalidEmojiShortcut" bundle="com.vladsch.idea.multimarkdown.inspections.InspectionsBundle" key="inspection.emoji-shortcuts"
+                         id="markdown.invalid-emoji-shortcut"
+                         enabledByDefault="true" level="ERROR" runForWholeFile="false"
+                         groupKey="group.names.reference-issues"
+                         implementationClass="com.vladsch.idea.multimarkdown.inspections.emoji.InvalidEmojiShortcutInspection"/>
+
+        <localInspection groupPath="Markdown" language="Markdown" shortName="DuplicateReferences" bundle="com.vladsch.idea.multimarkdown.inspections.InspectionsBundle" key="inspection.duplicate.references"
+                         id="markdown.duplicate-reference-id"
+                         enabledByDefault="false" level="WARNING" runForWholeFile="false"
+                         groupKey="group.names.reference-issues"
+                         implementationClass="com.vladsch.idea.multimarkdown.inspections.references.DuplicateReferencesInspection"/>
+
+        <localInspection groupPath="Markdown" language="Markdown" shortName="ReferenceLink" bundle="com.vladsch.idea.multimarkdown.inspections.InspectionsBundle" key="inspection.link.references"
+                         id="markdown.validate-reference-link"
+                         enabledByDefault="false" level="ERROR" runForWholeFile="false"
+                         groupKey="group.names.reference-issues"
+                         implementationClass="com.vladsch.idea.multimarkdown.inspections.link.ReferenceLinkInspection"/>
+
+        <localInspection groupPath="Markdown" language="Markdown" shortName="MdUnresolvedReference" bundle="com.vladsch.idea.multimarkdown.inspections.InspectionsBundle" key="inspection.unresolved.references"
+                         id="markdown.unresolved-reference-id"
+                         enabledByDefault="false" level="ERROR" runForWholeFile="false"
+                         groupKey="group.names.reference-issues"
+                         implementationClass="com.vladsch.idea.multimarkdown.inspections.references.MdUnresolvedReferenceInspection"/>
+
+        <!--<projectTemplate projectType="flexmark-java extension" templatePath="projectTemplates/Java/flexmark-java-extension.zip" category="true"/>-->
+        <moduleType id="FLEXMARK_JAVA_EXTENSION" implementationClass="com.vladsch.flexmark.plugin.FlexmarkExtModuleType"/>
+
+        <lang.elementManipulator forClass="com.vladsch.idea.multimarkdown.psi.MdAttributeIdValue" implementationClass="com.vladsch.idea.multimarkdown.psi.impl.manipulator.MdAttributeIdValueManipulator"/>
+        <lang.elementManipulator forClass="com.vladsch.idea.multimarkdown.psi.MdEnumeratedReferenceId" implementationClass="com.vladsch.idea.multimarkdown.psi.impl.manipulator.MdEnumeratedReferenceTypeManipulator"/>
+        <lang.elementManipulator forClass="com.vladsch.idea.multimarkdown.psi.MdNamedElement" implementationClass="com.vladsch.idea.multimarkdown.psi.impl.manipulator.MdNamedElementManipulator"/>
+        <lang.elementManipulator forClass="com.vladsch.idea.multimarkdown.psi.MdVerbatim" implementationClass="com.vladsch.idea.multimarkdown.psi.impl.manipulator.MdVerbatimManipulator"/>
+        <lang.elementManipulator forClass="com.vladsch.idea.multimarkdown.psi.impl.MdImageLinkRefUrlContentImpl" implementationClass="com.vladsch.idea.multimarkdown.psi.impl.manipulator.MdImageMultiLineUrlContentManipulator"/>
+        <lang.elementManipulator forClass="com.vladsch.idea.multimarkdown.psi.MdHtmlBlock" implementationClass="com.vladsch.idea.multimarkdown.psi.impl.manipulator.MdHtmlBlockManipulator"/>
+        <lang.elementManipulator forClass="com.vladsch.idea.multimarkdown.psi.MdJekyllFrontMatterBlock" implementationClass="com.vladsch.idea.multimarkdown.psi.impl.manipulator.MdJekyllFrontMatterBlockManipulator"/>
+        <lang.elementManipulator forClass="com.vladsch.idea.multimarkdown.psi.MdInlineCode" implementationClass="com.vladsch.idea.multimarkdown.psi.impl.manipulator.MdInlineCodeManipulator"/>
+        <lang.elementManipulator forClass="com.vladsch.idea.multimarkdown.psi.flexmark.FlexmarkFrontMatterBlock" implementationClass="com.vladsch.idea.multimarkdown.psi.flexmark.impl.FlexmarkFrontMatterBlockManipulator"/>
+        <lang.elementManipulator forClass="com.vladsch.idea.multimarkdown.psi.MdReference" implementationClass="com.vladsch.idea.multimarkdown.psi.impl.manipulator.MdReferenceManipulator"/>
+        <lang.elementManipulator forClass="com.vladsch.idea.multimarkdown.psi.MdFootnote" implementationClass="com.vladsch.idea.multimarkdown.psi.impl.manipulator.MdReferenceManipulator"/>
+        <lang.elementManipulator forClass="com.vladsch.idea.multimarkdown.psi.MdMacro" implementationClass="com.vladsch.idea.multimarkdown.psi.impl.manipulator.MdReferenceManipulator"/>
+        <lang.elementManipulator forClass="com.vladsch.idea.multimarkdown.psi.MdReferencingElementReference" implementationClass="com.vladsch.idea.multimarkdown.psi.impl.manipulator.MdReferencingElementManipulator"/>
+        <lang.elementManipulator forClass="com.vladsch.idea.multimarkdown.psi.impl.text.MdPlainTextElementImpl" implementationClass="com.vladsch.idea.multimarkdown.psi.impl.text.MdPlainTextElementManipulator"/>
+
+        <!-- Flexmark stuff -->
+        <psi.referenceContributor language="JAVA" implementation="com.vladsch.idea.multimarkdown.language.FlexmarkReferenceContributor"/>
+        <codeInsight.lineMarkerProvider language="JAVA" implementationClass="com.vladsch.idea.multimarkdown.psi.flexmark.FlexmarkLineMarkerProvider"/>
+        <stubIndex implementation="com.vladsch.idea.multimarkdown.psi.flexmark.impl.FlexmarkExampleOptionIndex"/>
+        <stubElementTypeHolder class="com.vladsch.idea.multimarkdown.psi.flexmark.impl.FlexmarkElementTypes"/>
+        <fileBasedIndex implementation="com.vladsch.idea.multimarkdown.psi.flexmark.impl.FlexmarkFileIndex"/>
+        <stubIndex implementation="com.vladsch.idea.multimarkdown.psi.impl.stub.index.MdLinkElementIndex"/>
+        <stubIndex implementation="com.vladsch.idea.multimarkdown.psi.impl.stub.index.MdPlainTextElementIndex"/>
+        <stubIndex implementation="com.vladsch.idea.multimarkdown.psi.impl.stub.index.MdReferenceableTextIndex"/>
+        <!--<lang.refactoringSupport language="JAVA" implementationClass="com.vladsch.idea.multimarkdown.psi.flexmark.FlexmarkRefactoringSupportProvider"/>-->
+        <!--<lang.elementManipulator forClass="com.intellij.psi.PsiLiteralExpression" implementationClass="com.vladsch.idea.multimarkdown.psi.flexmark.FlexmarkExampleOptionLiteralManipulator"/>-->
+        <!--<renamePsiElementProcessor implementation="com.vladsch.idea.multimarkdown.psi.flexmark.FlexmarkRenameProcessor"/>-->
+        <!--<moduleConfigurationEditorProvider implementation="com.vladsch.flexmark.plugin.FlexmarkModuleEditorsProvider"/>-->
+        <moduleService serviceImplementation="com.vladsch.flexmark.plugin.FlexmarkExtModuleBuildConfiguration"/>
+
+        <renameHandler implementation="com.vladsch.idea.multimarkdown.psi.flexmark.FlexmarkExampleOptionLiteralRenameHandler"/>
+        <!--<renameHandler implementation="com.vladsch.idea.multimarkdown.psi.impl.MarkdownNamedElementRenameHandler"/>-->
+        <vetoRenameCondition implementation="com.vladsch.idea.multimarkdown.psi.impl.manipulator.MdNamedElementVetoRename"/>
+
+        <stripTrailingSpacesFilterFactory implementation="com.vladsch.idea.multimarkdown.language.MdStripTrailingSpacesFilterFactory"/>
+
+        <webHelpProvider implementation="com.vladsch.idea.multimarkdown.settings.MdWebHelpTopicProvider"/>
+
+        <fileDocumentManagerListener id="com.vladsch.idea.multimarkdown.language.MdOnSaveFileUpdater" implementation="com.vladsch.idea.multimarkdown.language.MdOnSaveFileUpdater"/>
+        <fileEditorProvider implementation="com.vladsch.idea.multimarkdown.editor.MdSplitEditorProvider"/>
+        <fileEditorProvider implementation="com.vladsch.idea.multimarkdown.editor.HtmlSplitEditorProvider"/>
+
+        <!--        <findUsagesHandlerFactory implementation="com.vladsch.idea.multimarkdown.language.MdFindUsagesHandlerFactory"/>-->
+        <refactoring.moveDirectoryWithClassesHelper implementation="com.vladsch.idea.multimarkdown.refactoring.MdMoveDirectoryWithClassesHelper"/>
+        <moveFileHandler implementation="com.vladsch.idea.multimarkdown.refactoring.MdMoveFileHandler"/>
+        <refactoring.elementListenerProvider implementation="com.vladsch.idea.multimarkdown.refactoring.MdRefactoringListenerProvider"/>
+
+        <editorNotificationProvider implementation="com.vladsch.idea.multimarkdown.editor.javafx.JavaFxCouldBeEnabledNotificationProvider"/>
+        <editorNotificationProvider implementation="com.vladsch.idea.multimarkdown.inspections.JekyllFrontMatterFoundNotificationProvider"/>
+        <editorNotificationProvider implementation="com.vladsch.idea.multimarkdown.inspections.LineSeparatorFoundNotificationProvider"/>
+        <editorNotificationProvider implementation="com.vladsch.idea.multimarkdown.inspections.AutoLinksEnabledInLargeFileNotificationProvider"/>
+        <editorNotificationProvider implementation="com.vladsch.idea.multimarkdown.editor.GitHubMdChangedNotificationProvider"/>
+
+        <liveTemplateContext implementation="com.vladsch.idea.multimarkdown.language.template.MarkdownTemplateContextType$Generic"/>
+        <defaultLiveTemplatesProvider implementation="com.vladsch.idea.multimarkdown.language.template.MarkdownTemplatesProvider"/>
+
+        <breadcrumbsInfoProvider implementation="com.vladsch.idea.multimarkdown.language.breadcrumbs.MdBreadcrumbsInfoProvider"/>
+
+        <!-- Code Folding -->
+        <lang.foldingBuilder language="Markdown" implementationClass="com.vladsch.idea.multimarkdown.language.folding.MdFoldingBuilder"/>
+        <codeFoldingOptionsProvider instance="com.vladsch.idea.multimarkdown.language.folding.MdCodeFoldingOptionsProvider"/>
+        <applicationService serviceImplementation="com.vladsch.idea.multimarkdown.language.folding.MdFoldingSettings"/>
+
+        <!-- Code Style Settings -->
+        <langCodeStyleSettingsProvider implementation="com.vladsch.idea.multimarkdown.language.codeStyle.MdLanguageCodeStyleSettingsProvider"/>
+        <codeStyleSettingsProvider implementation="com.vladsch.idea.multimarkdown.language.codeStyle.MdNavigatorCodeStyleSettingsProvider"/>
+        <lookup.charFilter implementation="com.vladsch.idea.multimarkdown.language.completion.MdCompletionCharFilter" order="first" id="md_navigator_no_char_completion"/>
+
+        <!--
+                <editorActionHandler action="EditorPaste" implementationClass="com.vladsch.idea.multimarkdown.editor.actions.handlers.MarkdownPasteHandler" order="first" />
+        -->
+        <copyPastePostProcessor implementation="com.vladsch.idea.multimarkdown.editor.actions.handlers.MdCopyPastePostProcessor"/>
+        <copyPastePreProcessor implementation="com.vladsch.idea.multimarkdown.editor.actions.handlers.MdCopyPastePreProcessor"/>
+
+        <!-- Typing Handlers -->
+        <enterHandlerDelegate implementation="com.vladsch.idea.multimarkdown.editor.actions.handlers.EnterHandler"/>
+        <typedHandler implementation="com.vladsch.idea.multimarkdown.editor.actions.handlers.TypedCharHandler"/>
+        <backspaceHandlerDelegate implementation="com.vladsch.idea.multimarkdown.editor.actions.handlers.BackspaceHandler"/>
+        <joinLinesHandler implementation="com.vladsch.idea.multimarkdown.editor.actions.handlers.MdJoinLinesHandler"/>
+
+        <!--RELEASE : uncomment to get default scheme colors-->
+        <additionalTextAttributes scheme="Darcula" file="com/vladsch/idea/multimarkdown/colorSchemes/MarkdownDarcula.xml"/>
+        <additionalTextAttributes scheme="Default" file="com/vladsch/idea/multimarkdown/colorSchemes/MarkdownDefault.xml"/>
+
+        <annotator language="Markdown" implementationClass="com.vladsch.idea.multimarkdown.annotator.MdAnnotator"/>
+        <externalAnnotator language="Markdown" implementationClass="com.vladsch.idea.multimarkdown.annotator.MdExternalAnnotator"/>
+
+        <braceMatcher filetype="Markdown" implementationClass="com.vladsch.idea.multimarkdown.language.MdBraceMatcher"/>
+
+        <!-- Todo Indexing -->
+        <todoIndexer filetype="Markdown" implementationClass="com.vladsch.idea.multimarkdown.todo.MdTodoIndexer"/>
+
+        <editor.linePainter implementation="com.vladsch.idea.multimarkdown.language.linepainter.MdEditorLinePainter"/>
+
+        <colorSettingsPage implementation="com.vladsch.idea.multimarkdown.highlighter.MdColorSettingsPage"/>
+        <completion.contributor language="Markdown" implementationClass="com.vladsch.idea.multimarkdown.language.completion.MdCompletionContributor"/>
+        <completion.contributor language="JAVA" implementationClass="com.vladsch.idea.multimarkdown.language.completion.FlexmarkJavaCompletionContributor"/>
+        <fileTypeFactory implementation="com.vladsch.idea.multimarkdown.MdFileTypeFactory"/>
+        <lang.commenter language="Markdown" implementationClass="com.vladsch.idea.multimarkdown.language.MdCommenter"/>
+        <lang.documentationProvider language="Markdown" implementationClass="com.vladsch.idea.multimarkdown.documentation.MdDocumentationProvider"/>
+        <lang.findUsagesProvider language="Markdown" implementationClass="com.vladsch.idea.multimarkdown.language.MdFindUsagesProvider"/>
+        <lang.namesValidator language="Markdown" implementationClass="com.vladsch.idea.multimarkdown.language.MdNamesValidator"/>
+        <lang.parserDefinition language="Markdown" implementationClass="com.vladsch.idea.multimarkdown.parser.MdParserDefinition"/>
+        <lang.refactoringSupport language="Markdown" implementationClass="com.vladsch.idea.multimarkdown.language.MdRefactoringSupportProvider"/>
+        <lang.syntaxHighlighterFactory key="Markdown" language="Markdown" implementationClass="com.vladsch.idea.multimarkdown.highlighter.MdSyntaxHighlighterFactory"/>
+        <spellchecker.support language="Markdown" implementationClass="com.vladsch.idea.multimarkdown.spellchecking.MdSpellcheckingStrategy"/>
+        <fileIconProvider implementation="com.vladsch.idea.multimarkdown.MdFileIconProvider"/>
+        <referencesSearch implementation="com.vladsch.idea.multimarkdown.language.MdReferenceSearch"/>
+        <codeInsight.lineMarkerProvider language="Markdown" implementationClass="com.vladsch.idea.multimarkdown.language.MdLineMarkerProvider"/>
+        <nameSuggestionProvider implementation="com.vladsch.idea.multimarkdown.language.ElementNameSuggestionProvider"/>
+
+        <lang.psiStructureViewFactory language="Markdown" implementationClass="com.vladsch.idea.multimarkdown.language.structure.MdStructureViewFactory"/>
+
+        <errorHandler implementation="com.vladsch.idea.multimarkdown.error.ErrorReporter"/>
+        <iconLayerProvider implementation="com.vladsch.idea.multimarkdown.MdWikiDirectoryOverlayProvider" order="last"/>
+        <problemFileHighlightFilter implementation="com.vladsch.idea.multimarkdown.language.MdProblemFileHighlightFilter"/>
+
+        <treeStructureProvider implementation="com.vladsch.idea.multimarkdown.language.projectView.MdTreeStructureProvider"/>
+    </extensions>
+
+    <extensions defaultExtensionNs="com.vladsch">
+        <shared.clipboard.data.provider implementation="com.vladsch.idea.multimarkdown.editor.actions.handlers.MdSharedClipboardDataProvider"/>
+    </extensions>
+
+    <project-components>
+        <component>
+            <implementation-class>com.vladsch.idea.multimarkdown.MdProjectComponent</implementation-class>
+        </component>
+        <component>
+            <implementation-class>com.vladsch.idea.multimarkdown.settings.profile.RenderingProfileManager</implementation-class>
+            <loadForDefaultProject/>
+        </component>
+    </project-components>
+
+    <application-components>
+        <component>
+            <implementation-class>com.vladsch.idea.multimarkdown.MdPlugin</implementation-class>
+        </component>
+        <component>
+            <implementation-class>com.vladsch.idea.multimarkdown.MdResourceResolverImpl</implementation-class>
+        </component>
+        <component>
+            <implementation-class>com.vladsch.idea.multimarkdown.MdImageCache</implementation-class>
+        </component>
+        <component>
+            <implementation-class>com.vladsch.flexmark.plugin.FlexmarkModuleLocalSettings</implementation-class>
+        </component>
+    </application-components>
+
+    <!--
+        <sharedLibrary value="flexmark-util.jar"/>
+        <sharedLibrary value="plugin-util.jar"/>
+    -->
+</idea-plugin>

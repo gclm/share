@@ -1,0 +1,5 @@
+[Link Text](<spot>/</spot>repository/relative/address.md)
+
+![Alt Text](<spot>file:///local/file/project/</spot>repository/relative/image.png)
+
+[Reference2]: <spot>https://github.com/user/project/blob/master/</spot>repository/relative/address.md

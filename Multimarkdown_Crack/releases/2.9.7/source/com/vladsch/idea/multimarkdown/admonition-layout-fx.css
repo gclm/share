@@ -1,0 +1,73 @@
+.adm-block {
+    display: block;
+    width: 99%;
+    border-radius: 6px;
+    padding-left: 10px;
+    margin-bottom: 1em;
+    border: 1px solid;
+    border-left-width: 4px;
+}
+
+.adm-heading {
+    display: block;
+    font-weight: bold;
+    font-size: 0.9em;
+    height: 1.8em;
+    padding-top: 0.3em;
+    padding-bottom: 2em;
+    border-bottom: solid 1px;
+    padding-left: 10px;
+    margin-left: -10px;
+}
+
+.adm-body {
+    display: block;
+    padding-bottom: 0;
+    padding-top: 0;
+    margin-left: 1.5em;
+    margin-right: 1.5em;
+    margin-top: -0.3em;
+}
+
+.adm-icon {
+    height: 1.6em;
+    width: 1.6em;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.25em;
+    margin-left: -0.25em;
+}
+
+.adm-hidden {
+    display: none !important;
+}
+
+.adm-block.adm-collapsed > .adm-heading, .adm-block.adm-open > .adm-heading {
+    position: relative;
+    cursor: pointer;
+}
+
+.adm-block.adm-collapsed > .adm-heading {
+    margin-bottom: 0;
+}
+
+.adm-block.adm-collapsed .adm-body {
+    display: none !important;
+}
+
+.adm-block.adm-open > .adm-heading:after,
+.adm-block.adm-collapsed > .adm-heading:after {
+    display: inline-block;
+    position: absolute;
+    top:calc(50% - .65em);
+    right: 0.5em;
+    font-size: 1.3em;
+    content: '▼';
+}
+
+.adm-block.adm-collapsed > .adm-heading:after {
+    right: 0.50em;
+    top:calc(50% - .75em);
+    transform: rotate(90deg);
+}
+
