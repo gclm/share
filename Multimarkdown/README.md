@@ -12,7 +12,7 @@
 
 1. 点击下面的连接，下载插件文件
 
-   [下载连接](https://github.com/gclm/Share/releases/download/multimarkdown-2.9.7/idea-multimarkdown-2.9.7-gclm.zip)
+   下载地址： [https://github.com/gclm/share/releases/tag/multimarkdown]( https://github.com/gclm/share/releases/tag/multimarkdown)
 
 2. 导入并重启IDEA
 

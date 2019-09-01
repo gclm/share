@@ -20,3 +20,6 @@
    按照指示拖拉就可以了
   ```
 
+## 下载地址
+
+[https://github.com/gclm/share/releases/tag/XMind](https://github.com/gclm/share/releases/tag/XMind)

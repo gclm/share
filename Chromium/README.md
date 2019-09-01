@@ -10,7 +10,7 @@ Chromium 浏览器 是 Google Chrome 浏览器背后的开源项目。 它是一
 
 ## 下载 Windows 版本
 
-1. 前往releases 下载 安装文件: https://github.com/gclm/Chromium_VPN/releases
+1. 前往releases 下载 安装文件: [https://github.com/gclm/share/releases/tag/Chromium-Windows](https://github.com/gclm/share/releases/tag/Chromium-Windows)
 
 2. 解压缩到你的 **桌面**
 
@@ -18,7 +18,7 @@ Chromium 浏览器 是 Google Chrome 浏览器背后的开源项目。 它是一
 
 ## 下载 macOS 版本 
 
-1. 前往releases 下载 安装文件: https://github.com/gclm/Chromium_VPN/releases
+1. 前往releases 下载 安装文件: [https://github.com/gclm/share/releases/tag/Chromium-Mac](https://github.com/gclm/share/releases/tag/Chromium-Mac)
 
 2. 解压到你的 **桌面**，你就会得到 Chromium 应用程序
 

@@ -10,9 +10,8 @@
 命令如下:
 ```shell
 brew install openSSL
-
 ````
 ## 下载地址
 
-[https://github.com/gclm/Redis-Desktop-Manager-Mac/releases](https://github.com/gclm/Redis-Desktop-Manager-Mac/releases)
+[https://github.com/gclm/share/releases/tag/Redis-Desktop-Manager-Mac](https://github.com/gclm/share/releases/tag/Redis-Desktop-Manager-Mac)
 
