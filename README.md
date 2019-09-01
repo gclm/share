@@ -6,5 +6,8 @@
 
 ## 分类
 
-- [Multimarkdown_Crack（IDEA 插件 markdown-navigator 破解版）](./Multimarkdown_Crack/README.md)
-- 
+- [Multimarkdown（IDEA 插件 markdown-navigator 破解版）](./Multimarkdown/README.md)
+- [XMind 破解](./XMind/README.md)
+- [Chromium (自编译的基于VPN的Chromium 浏览器)](./Chromium/README.md)
+- [Redis-Desktop-Manager-Mac](./Redis-Desktop-Manager-Mac/README.md)
+
