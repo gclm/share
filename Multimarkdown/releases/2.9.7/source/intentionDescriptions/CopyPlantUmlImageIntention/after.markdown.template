@@ -1,9 +1,0 @@
-<spot>```puml
-A -> B 
-```</spot>
-
-<spot>```plantuml
-digraph Test {
-   A -> C
-}
-```</spot>
