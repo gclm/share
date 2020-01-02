@@ -1,0 +1,6 @@
+<spot>[Reference](link-url.ext)</spot>
+
+<spot>![ReferenceImage](image-url.ext)</spot>
+
+[Reference]: link-url.ext
+[ReferenceImage]: image-url.ext

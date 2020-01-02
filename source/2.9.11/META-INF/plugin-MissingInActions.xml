@@ -1,0 +1,5 @@
+<idea-plugin>
+  <extensions defaultExtensionNs="com.vladsch">
+    <shared.clipboard.data.provider implementation="com.vladsch.idea.multimarkdown.actions.handlers.enh.util.MdSharedClipboardDataProvider"/>
+  </extensions>
+</idea-plugin>

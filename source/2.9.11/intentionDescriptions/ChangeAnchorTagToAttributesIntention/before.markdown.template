@@ -1,0 +1,5 @@
+<spot><a id="reference-id"></a></spot>
+
+<spot><a id="reference-id">Anchor Text</a></spot>
+
+<spot>Some Text<a name="reference-name"></a></spot>

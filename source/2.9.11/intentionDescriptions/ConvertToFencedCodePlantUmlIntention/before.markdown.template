@@ -1,0 +1,11 @@
+<spot>![](https://g.gravizo.com/g?
+@startuml;
+A -> B;
+@enduml;
+)</spot> 
+
+<spot>![](https://g.gravizo.com/g?
+digraph Test {
+   A -> C
+}
+)</spot> 

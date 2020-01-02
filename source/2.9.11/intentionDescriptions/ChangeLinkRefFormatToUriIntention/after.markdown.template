@@ -1,0 +1,4 @@
+[Link Text](<spot>file:///local/file/project</spot>/repository/relative/address.md)
+
+[Reference1]: <spot>file:///local/file/project/repository/relative/</spot>page/relative/address.ext
+[Reference2]: <spot>file:///local/file/project</spot>/repository/relative/address.md

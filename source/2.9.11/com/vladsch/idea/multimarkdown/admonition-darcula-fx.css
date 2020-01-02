@@ -1,0 +1,191 @@
+/* default scheme */
+.adm-heading > span {
+    color: #A9B7C6;
+}
+
+.adm-block {
+    border-color: #4d4d4d;
+    box-shadow: 2px 2px 6px #999999;
+}
+
+.adm-block.adm-abstract {
+    border-left-color: #3787b3;
+}
+
+.adm-block.adm-abstract .adm-heading {
+    background: #2d3e59;
+    color: #3787b3;
+    border-bottom-color: #285f80;
+}
+
+.adm-block.adm-abstract.adm-open > .adm-heading:after,
+.adm-block.adm-abstract.adm-collapsed > .adm-heading:after {
+    color: #2f7499;
+}
+
+
+.adm-block.adm-bug {
+    border-left-color: #b3476f;
+}
+
+.adm-block.adm-bug .adm-heading {
+    background: #592d3b;
+    color: #bf4c78;
+    border-bottom-color: #803450;
+}
+
+.adm-block.adm-bug.adm-open > .adm-heading:after,
+.adm-block.adm-bug.adm-collapsed > .adm-heading:after {
+    color: #992e59;
+}
+
+.adm-block.adm-danger {
+    border-left-color: #b3475d;
+}
+
+.adm-block.adm-danger .adm-heading {
+    background: #592d35;
+    color: #bf4c65;
+    border-bottom-color: #803344;
+}
+
+.adm-block.adm-danger.adm-open > .adm-heading:after,
+.adm-block.adm-danger.adm-collapsed > .adm-heading:after {
+    color: #b3475d;
+}
+
+.adm-block.adm-example {
+    border-left-color: #5b42a6;
+}
+
+.adm-block.adm-example .adm-heading {
+    background: #352d59;
+    color: #8066cc;
+    border-bottom-color: #474080;
+}
+
+.adm-block.adm-example.adm-open > .adm-heading:after,
+.adm-block.adm-example.adm-collapsed > .adm-heading:after {
+    color: #5d53a6;
+}
+
+.adm-block.adm-fail {
+    border-left-color: #b34747;
+}
+
+.adm-block.adm-fail .adm-heading {
+    background: #593636;
+    color: #bf4c4c;
+    border-bottom-color: #803333;
+}
+
+.adm-block.adm-fail.adm-open > .adm-heading:after,
+.adm-block.adm-fail.adm-collapsed > .adm-heading:after {
+    color: #993d3d;
+}
+
+.adm-block.adm-faq {
+    border-left-color: #5b8c38;
+}
+
+.adm-block.adm-faq .adm-heading {
+    background: #425936;
+    color: #6ca642;
+    border-bottom-color: #4e8033;
+}
+
+.adm-block.adm-faq.adm-open > .adm-heading:after,
+.adm-block.adm-faq.adm-collapsed > .adm-heading:after {
+    color: #5b8c38;
+}
+
+.adm-block.adm-info {
+    border-left-color: #337780;
+}
+
+.adm-block.adm-info .adm-heading {
+    background: #365459;
+    color: #3d8e99;
+    border-bottom-color: #337780;
+}
+
+.adm-block.adm-info.adm-open > .adm-heading:after,
+.adm-block.adm-info.adm-collapsed > .adm-heading:after {
+    color: #337780;
+}
+
+.adm-block.adm-note {
+    border-left-color: #3d6099;
+}
+
+.adm-block.adm-note .adm-heading {
+    background: #2d3e59;
+    color: #497ecc;
+    border-bottom-color: #385e8c;
+}
+
+.adm-block.adm-note.adm-open > .adm-heading:after,
+.adm-block.adm-note.adm-collapsed > .adm-heading:after {
+    color: #3d6099;
+}
+
+.adm-block.adm-quote {
+    border-left-color: #808080;
+}
+
+.adm-block.adm-quote .adm-heading {
+    background: #4d4d4d;
+    color: #9E9E9E;
+    border-bottom-color: #999999;
+}
+
+.adm-block.adm-quote.adm-open > .adm-heading:after,
+.adm-block.adm-quote.adm-collapsed > .adm-heading:after {
+    color: #808080;
+}
+
+.adm-block.adm-success {
+    border-left-color: #34804f;
+}
+
+.adm-block.adm-success .adm-heading {
+    background: #365941;
+    color: #3d9960;
+    border-bottom-color: #3d995a;
+}
+
+.adm-block.adm-success.adm-open > .adm-heading:after,
+.adm-block.adm-success.adm-collapsed > .adm-heading:after {
+    color: #33804f;
+}
+
+.adm-block.adm-tip {
+    border-left-color: #2d8070;
+}
+
+.adm-block.adm-tip .adm-heading {
+    background: #264d45;
+    color: #2e9989;
+    border-bottom-color: #2e7364;
+}
+
+.adm-block.adm-tip.adm-open > .adm-heading:after,
+.adm-block.adm-tip.adm-collapsed > .adm-heading:after {
+    color: #2e7366;
+}
+
+.adm-block.adm-warning {
+    border-left-color: #a66923;
+}
+
+.adm-block.adm-warning .adm-heading {
+    background: #4d3a27;
+    color: #a66621;
+    border-bottom-color: #805933;
+}
+
+.adm-block.adm-warning.adm-open > .adm-heading:after,
+.adm-block.adm-warning.adm-collapsed > .adm-heading:after {
+    color: #80501d;
+}
+

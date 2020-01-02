@@ -1,0 +1,3 @@
+<spot><a id="reference-id">Some Text</a></spot>
+
+<spot>Some Text <a id="reference-id"></a></spot>
